@@ -1,73 +1,78 @@
-# Welcome to your Lovable project
+# CineFluent 🎬
 
-## Project info
+Learn languages through your favorite movies - a full-stack language learning platform.
 
-**URL**: https://lovable.dev/projects/3316a248-6ab6-4296-9f25-fab31ee2e23a
+## Project Structure
 
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/3316a248-6ab6-4296-9f25-fab31ee2e23a) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+cinefluent/
+├── frontend/          # React TypeScript application
+├── backend/           # FastAPI Python application
+├── README.md          # This file
+└── .gitignore         # Git ignore rules
 ```
 
-**Edit a file directly in GitHub**
+## Quick Start
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Frontend Development
+```bash
+cd frontend
+npm install --legacy-peer-deps
+npm run dev
+```
+Open [http://localhost:8080](http://localhost:8080) to view the app.
 
-**Use GitHub Codespaces**
+### Backend Development (Coming Soon)
+```bash
+cd backend
+pip install -r requirements.txt
+python main.py
+```
+API will be available at [http://localhost:8000](http://localhost:8000).
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Development Workflow
 
-## What technologies are used for this project?
+1. **Frontend**: React app runs on `http://localhost:8080`
+2. **Backend**: FastAPI server runs on `http://localhost:8000`
+3. **Database**: PostgreSQL runs on `http://localhost:5432`
 
-This project is built with:
+## Tech Stack
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Frontend
+- ⚛️ React 18 + TypeScript
+- 🎨 Tailwind CSS + shadcn/ui
+- ⚡ Vite build tool
+- 🧭 React Router for navigation
 
-## How can I deploy this project?
+### Backend (Coming Soon)
+- 🐍 FastAPI + Python
+- 🐘 PostgreSQL database
+- 🔧 SQLAlchemy ORM
+- 🔐 JWT authentication
 
-Simply open [Lovable](https://lovable.dev/projects/3316a248-6ab6-4296-9f25-fab31ee2e23a) and click on Share -> Publish.
+## Features
 
-## Can I connect a custom domain to my Lovable project?
+- 🎬 **Movie-based Learning**: Learn through authentic movie content
+- 📚 **Interactive Lessons**: Video clips with subtitles and translations
+- 🧠 **Smart Quizzes**: Contextual questions and vocabulary tracking
+- 📊 **Progress Analytics**: Track learning journey and streaks
+- 👥 **Community Features**: Connect with fellow learners
+- 🏆 **Gamification**: Achievements and leaderboards
 
-Yes, you can!
+## Demo Credentials
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+For testing the frontend:
+- **Email**: demo@cinefluent.com
+- **Password**: demo123
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Work in either `frontend/` or `backend/` directory
+4. Test your changes thoroughly
+5. Submit a pull request
+
+## License
+
+MIT License - see LICENSE file for details.

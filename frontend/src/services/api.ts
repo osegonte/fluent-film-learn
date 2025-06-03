@@ -2,7 +2,7 @@
 import { User, Movie, Lesson, Progress, AuthResponse } from '../types/api';
 import { mockApiService } from '../data/mockData';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL + '/api' || 'http://localhost:8000/api';
 const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === 'true' || !import.meta.env.VITE_API_URL;
 
 class ApiService {

@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000
+      - VITE_USE_MOCK_DATA=false
+    depends_on:
+      - backend
+    networks:
+      - cinefluent-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - DATABASE_URL=postgresql://cinefluent:password@db:5432/cinefluent
+      - SECRET_KEY=your-secret-key-change-in-production
+    depends_on:
+      - db
+    networks:
+      - cinefluent-network
+
+  db:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=cinefluent
+      - POSTGRES_USER=cinefluent
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - cinefluent-network
+
+volumes:
+  postgres_data:
+
+networks:
+  cinefluent-network:
+    driver: bridge
