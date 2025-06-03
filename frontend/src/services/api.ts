@@ -2,8 +2,8 @@
 import { User, Movie, Lesson, Progress, AuthResponse } from '../types/api';
 import { mockApiService } from '../data/mockData';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL + '/api' || 'http://localhost:8000/api';
-const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === 'true' || !import.meta.env.VITE_API_URL;
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA === 'true' || false;
 
 class ApiService {
   private token: string | null = null;
@@ -48,9 +48,9 @@ class ApiService {
       return mockApiService.login(email, password);
     }
 
-    const response = await this.request<AuthResponse>('/auth/login', {
+    const response = await this.request<AuthResponse>('/api/v1/auth/login', {
       method: 'POST',
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ username: email, password }), // Backend expects 'username'
     });
     
     this.token = response.token;
@@ -63,7 +63,7 @@ class ApiService {
       return mockApiService.register(email, password, name);
     }
 
-    const response = await this.request<AuthResponse>('/auth/register', {
+    const response = await this.request<AuthResponse>('/api/v1/auth/register', {
       method: 'POST',
       body: JSON.stringify({ email, password, name }),
     });
@@ -81,7 +81,7 @@ class ApiService {
     }
 
     try {
-      await this.request('/auth/logout', { method: 'POST' });
+      await this.request('/api/v1/auth/logout', { method: 'POST' });
     } catch (error) {
       console.error('Logout request failed:', error);
     } finally {
@@ -96,7 +96,7 @@ class ApiService {
       return mockApiService.getMovies();
     }
 
-    return this.request<Movie[]>('/movies');
+    return this.request<Movie[]>('/api/v1/movies');
   }
 
   async getMovie(id: string): Promise<Movie> {
@@ -104,7 +104,7 @@ class ApiService {
       return mockApiService.getMovie(id);
     }
 
-    return this.request<Movie>(`/movies/${id}`);
+    return this.request<Movie>(`/api/v1/movies/${id}`);
   }
 
   // Lessons
@@ -113,7 +113,7 @@ class ApiService {
       return mockApiService.getLesson(id);
     }
 
-    return this.request<Lesson>(`/lessons/${id}`);
+    return this.request<Lesson>(`/api/v1/lessons/${id}`);
   }
 
   async getMovieLessons(movieId: string): Promise<Lesson[]> {
@@ -121,7 +121,7 @@ class ApiService {
       return mockApiService.getMovieLessons(movieId);
     }
 
-    return this.request<Lesson[]>(`/movies/${movieId}/lessons`);
+    return this.request<Lesson[]>(`/api/v1/movies/${movieId}/lessons`);
   }
 
   // Progress
@@ -130,7 +130,7 @@ class ApiService {
       return mockApiService.updateProgress(progress);
     }
 
-    await this.request('/progress', {
+    await this.request('/api/v1/progress', {
       method: 'POST',
       body: JSON.stringify(progress),
     });
@@ -142,7 +142,7 @@ class ApiService {
       return [];
     }
 
-    return this.request<Progress[]>('/progress');
+    return this.request<Progress[]>('/api/v1/progress');
   }
 
   // User
@@ -151,7 +151,7 @@ class ApiService {
       return mockApiService.getCurrentUser();
     }
 
-    return this.request<User>('/user/me');
+    return this.request<User>('/api/v1/user/me');
   }
 }
 

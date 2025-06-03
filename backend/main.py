@@ -18,7 +18,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30")
 PROJECT_NAME = os.getenv("PROJECT_NAME", "CineFluent")
 DEBUG = os.getenv("DEBUG", "True").lower() == "true"
 
-# CORS origins
+# CORS origins - Frontend runs on port 8080
 CORS_ORIGINS = [
     "http://localhost:8080",
     "http://localhost:3000", 
@@ -63,7 +63,7 @@ app.add_middleware(
 
 # Pydantic models
 class LoginRequest(BaseModel):
-    username: str  # email
+    username: str  # email (frontend sends 'username' field)
     password: str
 
 class RegisterRequest(BaseModel):
@@ -94,7 +94,7 @@ def health_check():
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
 
-# Auth endpoints
+# Auth endpoints - MATCHING FRONTEND EXPECTATIONS
 @app.post("/api/v1/auth/login", response_model=AuthResponse)
 async def login(credentials: LoginRequest):
     # Demo login credentials
@@ -107,7 +107,7 @@ async def login(credentials: LoginRequest):
                 "name": "Demo User",
                 "level": "Intermediate B1",
                 "streak": 12,
-                "total_words": 1247,
+                "total_words": 1247,  # Note: frontend expects 'totalWords' but backend uses 'total_words'
                 "study_time": "47h 23m",
                 "avatar": None,
                 "is_active": True
@@ -148,13 +148,13 @@ async def get_current_user_info():
         "name": "Demo User",
         "level": "Intermediate B1",
         "streak": 12,
-        "total_words": 1247,
-        "study_time": "47h 23m",
+        "totalWords": 1247,  # Frontend expects this format
+        "studyTime": "47h 23m",  # Frontend expects this format
         "avatar": None,
         "is_active": True
     }
 
-# Movie endpoints
+# Movie endpoints - MATCHING FRONTEND EXPECTATIONS
 @app.get("/api/v1/movies")
 async def get_movies():
     return [
