@@ -1,18 +1,8 @@
 
-import React, { useState } from 'react';
-import { 
-  User, 
-  Settings, 
-  Crown, 
-  Bell, 
-  HelpCircle, 
-  LogOut,
-  ChevronRight 
-} from 'lucide-react';
+import React from 'react';
+import { User, Settings, Crown, Bell, HelpCircle, LogOut, ChevronRight } from 'lucide-react';
 
 const ProfileScreen = () => {
-  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
-
   const profileStats = [
     { label: 'Words Learned', value: '1,247' },
     { label: 'Movies Completed', value: '8' },
@@ -25,127 +15,115 @@ const ProfileScreen = () => {
       icon: Crown,
       title: 'Upgrade to Premium',
       subtitle: 'Unlock all features',
-      color: '#FF9500',
       isPremium: true,
     },
     {
       icon: Settings,
       title: 'Learning Settings',
       subtitle: 'Customize your experience',
-      color: '#8E8E93',
     },
     {
       icon: Bell,
       title: 'Notifications',
       subtitle: 'Daily reminders and updates',
-      color: '#8E8E93',
-      hasSwitch: true,
     },
     {
       icon: HelpCircle,
       title: 'Help & Support',
       subtitle: 'Get help when you need it',
-      color: '#8E8E93',
     },
   ];
 
+  const languages = [
+    { name: 'Spanish', level: 'Intermediate', progress: 60, flag: '🇪🇸' },
+    { name: 'French', level: 'Beginner', progress: 30, flag: '🇫🇷' },
+  ];
+
   return (
-    <div className="flex flex-col h-full bg-gray-50">
+    <div className="flex flex-col h-full bg-canvas">
       <div className="flex-1 overflow-y-auto">
         {/* Profile Header */}
-        <div className="px-5 py-8 pt-16 text-center">
-          <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="text-3xl">🙋‍♂️</span>
+        <div className="px-6 py-8 pt-16 text-center">
+          <div className="w-20 h-20 bg-royalBlue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <User size={40} className="text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-black mb-1">John Doe</h1>
-          <p className="text-gray-500 mb-4">Intermediate Learner • Level B1</p>
-          <button className="bg-blue-600 text-white px-6 py-2 rounded-full text-sm font-semibold">
+          <h1 className="text-2xl font-bold text-primary mb-1">John Doe</h1>
+          <p className="text-secondary mb-4">Intermediate Learner • Level B1</p>
+          <button className="btn-primary">
             Edit Profile
           </button>
         </div>
 
         {/* Stats Grid */}
-        <div className="flex bg-white mx-5 rounded-xl p-5 mb-5 shadow-sm">
-          {profileStats.map((stat, index) => (
-            <div key={index} className="flex-1 text-center">
-              <div className="text-xl font-bold text-black mb-1">{stat.value}</div>
-              <div className="text-xs text-gray-500">{stat.label}</div>
+        <div className="px-6 mb-8">
+          <div className="bg-card rounded-xl p-6 border border-default">
+            <div className="grid grid-cols-2 gap-6">
+              {profileStats.map((stat, index) => (
+                <div key={index} className="text-center">
+                  <div className="text-xl font-bold text-primary mb-1">{stat.value}</div>
+                  <div className="text-xs text-secondary">{stat.label}</div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
 
         {/* Languages Section */}
-        <div className="px-5 mb-5">
-          <h2 className="text-xl font-semibold text-black mb-4">Learning Languages</h2>
-          <div className="bg-white rounded-xl overflow-hidden shadow-sm">
-            <div className="p-4 border-b border-gray-100 flex items-center">
-              <span className="text-2xl mr-3">🇪🇸</span>
-              <div className="flex-1">
-                <h3 className="font-semibold text-black">Spanish</h3>
-                <p className="text-sm text-gray-500">Intermediate</p>
+        <div className="px-6 mb-8">
+          <h2 className="text-xl font-semibold text-primary mb-4">Learning Languages</h2>
+          <div className="bg-card rounded-xl overflow-hidden border border-default">
+            {languages.map((language, index) => (
+              <div key={index} className={`p-4 flex items-center ${index < languages.length - 1 ? 'border-b border-default' : ''}`}>
+                <span className="text-2xl mr-3">{language.flag}</span>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-primary">{language.name}</h3>
+                  <p className="text-sm text-secondary">{language.level}</p>
+                </div>
+                <div className="w-16 h-2 bg-slate-800 dark:bg-slate-600 rounded-full ml-3">
+                  <div 
+                    className="progress-gradient h-2 rounded-full transition-all duration-300"
+                    style={{ width: `${language.progress}%` }}
+                  ></div>
+                </div>
               </div>
-              <div className="w-15 h-1 bg-gray-200 rounded-full ml-3">
-                <div className="w-3/5 h-full bg-green-500 rounded-full"></div>
-              </div>
-            </div>
+            ))}
             
-            <div className="p-4 border-b border-gray-100 flex items-center">
-              <span className="text-2xl mr-3">🇫🇷</span>
-              <div className="flex-1">
-                <h3 className="font-semibold text-black">French</h3>
-                <p className="text-sm text-gray-500">Beginner</p>
-              </div>
-              <div className="w-15 h-1 bg-gray-200 rounded-full ml-3">
-                <div className="w-1/3 h-full bg-green-500 rounded-full"></div>
-              </div>
-            </div>
-
-            <button className="p-4 text-center text-blue-600 font-medium">
+            <button className="w-full p-4 text-center text-royalBlue-500 font-medium hover:bg-slate-800 dark:hover:bg-slate-600 transition-colors">
               + Add Language
             </button>
           </div>
         </div>
 
         {/* Menu Items */}
-        <div className="px-5 mb-5">
-          <h2 className="text-xl font-semibold text-black mb-4">Settings</h2>
-          <div className="bg-white rounded-xl overflow-hidden shadow-sm">
+        <div className="px-6 mb-8">
+          <h2 className="text-xl font-semibold text-primary mb-4">Settings</h2>
+          <div className="bg-card rounded-xl overflow-hidden border border-default">
             {menuItems.map((item, index) => (
-              <button key={index} className="w-full p-4 border-b border-gray-100 last:border-b-0 flex items-center">
+              <button key={index} className={`w-full p-4 flex items-center hover:bg-slate-800 dark:hover:bg-slate-600 transition-colors ${index < menuItems.length - 1 ? 'border-b border-default' : ''}`}>
                 <div className="flex items-center flex-1">
-                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center mr-3 ${
-                    item.isPremium ? 'bg-orange-50' : 'bg-gray-100'
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center mr-3 ${
+                    item.isPremium ? 'bg-amber-400 bg-opacity-20' : 'bg-slate-800 dark:bg-slate-600'
                   }`}>
-                    <item.icon size={20} color={item.color} />
+                    <item.icon size={20} className={item.isPremium ? 'text-amber-400' : 'text-secondary'} />
                   </div>
                   <div className="flex-1 text-left">
-                    <h3 className="font-medium text-black">{item.title}</h3>
-                    <p className="text-sm text-gray-500">{item.subtitle}</p>
+                    <h3 className="font-medium text-primary">{item.title}</h3>
+                    <p className="text-sm text-secondary">{item.subtitle}</p>
                   </div>
                 </div>
-                {item.hasSwitch ? (
-                  <label className="relative inline-flex items-center cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={notificationsEnabled}
-                      onChange={(e) => setNotificationsEnabled(e.target.checked)}
-                      className="sr-only peer"
-                    />
-                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
-                  </label>
-                ) : (
-                  <ChevronRight size={20} className="text-gray-300" />
-                )}
+                <ChevronRight size={20} className="text-secondary" />
               </button>
             ))}
           </div>
         </div>
 
         {/* Sign Out */}
-        <button className="flex items-center justify-center bg-white mx-5 mb-10 p-4 rounded-xl shadow-sm">
-          <LogOut size={20} className="text-red-600 mr-2" />
-          <span className="font-medium text-red-600">Sign Out</span>
-        </button>
+        <div className="px-6 pb-8">
+          <button className="w-full bg-card p-4 rounded-xl border border-default flex items-center justify-center hover:bg-slate-800 dark:hover:bg-slate-600 transition-colors">
+            <LogOut size={20} className="text-persimmon-500 mr-2" />
+            <span className="font-medium text-persimmon-500">Sign Out</span>
+          </button>
+        </div>
       </div>
     </div>
   );

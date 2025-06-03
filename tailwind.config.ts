@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -19,6 +20,48 @@ export default {
 		},
 		extend: {
 			colors: {
+				// cinefluent brand colors
+				royalBlue: { 
+					500: '#1580FF',
+					600: '#0D6FE8'
+				},
+				magenta: { 500: '#D11AFF' },
+				spruce: { 500: '#22C55E' },
+				persimmon: { 500: '#EF4444' },
+				amber: { 400: '#FFB547' },
+				navy: { 900: '#0B1B3B' },
+				slate: { 
+					50: '#F7FAFE',
+					400: '#9CA3AF',
+					500: '#5B6B8E',
+					600: '#27344F',
+					700: '#1E273C',
+					800: '#E2E8F0',
+					900: '#111827'
+				},
+				
+				// Semantic tokens
+				'bg-canvas-light': '#F7FAFE',
+				'bg-card-light': '#FFFFFF',
+				'content-primary-light': '#0B1B3B',
+				'content-secondary-light': '#5B6B8E',
+				'border-light': '#E2E8F0',
+				'accent-solid-light': '#1580FF',
+				'state-success-light': '#22C55E',
+				'state-error-light': '#EF4444',
+				'spark-light': '#FFB547',
+				
+				'bg-canvas-dark': '#111827',
+				'bg-card-dark': '#1E273C',
+				'content-primary-dark': '#E2E8F0',
+				'content-secondary-dark': '#9CA3AF',
+				'border-dark': '#27344F',
+				'accent-solid-dark': '#1580FF',
+				'state-success-dark': '#22C55E',
+				'state-error-dark': '#EF4444',
+				'spark-dark': '#FFB547',
+
+				// Legacy shadcn colors for compatibility
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
@@ -52,16 +95,11 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
-				}
+			},
+			backgroundImage: {
+				'accent-gradient': 'linear-gradient(90deg, #1580FF 0%, #8C2BFF 50%, #D11AFF 100%)',
+				'accent-gradient-light': 'linear-gradient(90deg, #1580FF 0%, #8C2BFF 50%, #D11AFF 100%)',
+				'accent-gradient-dark': 'linear-gradient(90deg, #1580FF 0%, #8C2BFF 50%, #D11AFF 100%)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

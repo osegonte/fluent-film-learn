@@ -1,111 +1,156 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Play, Clock, Star } from 'lucide-react';
-import MovieCard from '../components/MovieCard';
-import LessonCard from '../components/LessonCard';
-import StreakWidget from '../components/StreakWidget';
 
 const LearnScreen = () => {
-  const [selectedMovie, setSelectedMovie] = useState(null);
-
-  const featuredMovies = [
+  const continueMovies = [
     {
-      id: 1,
-      title: 'Breaking Bad',
-      difficulty: 'Intermediate',
+      title: 'Toy Story',
       language: 'Spanish',
-      progress: 65,
-      totalLessons: 24,
-      completedLessons: 16,
-      thumbnail: '🎬',
-    },
-    {
-      id: 2,
-      title: 'Amélie',
       difficulty: 'Beginner',
-      language: 'French',
-      progress: 30,
-      totalLessons: 18,
-      completedLessons: 5,
-      thumbnail: '🎭',
+      progress: 65,
+      icon: '🎬'
     },
     {
-      id: 3,
-      title: 'Dark',
-      difficulty: 'Advanced',
-      language: 'German',
-      progress: 15,
-      totalLessons: 32,
-      completedLessons: 5,
-      thumbnail: '🌑',
-    },
+      title: 'Finding Nemo',
+      language: 'French',
+      difficulty: 'Intermediate',
+      progress: 30,
+      icon: '🐟'
+    }
   ];
 
-  const continueLesson = {
-    movieTitle: 'Breaking Bad',
-    episodeTitle: 'S1E3: ...And the Bag\'s in the River',
-    timestamp: '14:32',
-    subtitle: 'No me digas que no sabes quién soy.',
-    translation: 'Don\'t tell me you don\'t know who I am.',
-    progress: 0.65,
-  };
+  const exploreMovies = [
+    {
+      title: 'Toy Story',
+      language: 'Spanish',
+      difficulty: 'Beginner',
+      rating: 4.8,
+      duration: '18 min',
+      scenes: '8/12 scenes',
+      progress: 65,
+      icon: '🎬'
+    },
+    {
+      title: 'Finding Nemo',
+      language: 'French',
+      difficulty: 'Intermediate',
+      rating: 4.9,
+      duration: '22 min',
+      scenes: '4/15 scenes',
+      progress: 30,
+      icon: '🐟'
+    }
+  ];
+
+  const languages = ['All', 'Spanish', 'French', 'German', 'Italian'];
 
   return (
-    <div className="flex flex-col h-full bg-gray-50">
+    <div className="flex flex-col h-full bg-canvas">
       <div className="flex-1 overflow-y-auto">
-        {/* Header Section */}
-        <div className="p-5 pt-16">
-          <h1 className="text-3xl font-bold text-black mb-1">Good morning!</h1>
-          <p className="text-gray-500">Ready to learn with movies?</p>
+        {/* Header */}
+        <div className="px-6 py-8 pt-16 text-center">
+          <h1 className="text-3xl font-bold text-primary mb-2">Learn with Movies</h1>
+          <p className="text-secondary">Master languages through your favorite films</p>
         </div>
 
-        {/* Streak Widget */}
-        <StreakWidget />
-
-        {/* Continue Learning Section */}
-        <div className="mt-6 px-5">
-          <div className="flex justify-between items-center mb-3">
-            <h2 className="text-xl font-semibold text-black">Continue Learning</h2>
-            <button className="text-blue-600 font-medium">See All</button>
-          </div>
-          
-          <LessonCard lesson={continueLesson} />
-        </div>
-
-        {/* Featured Movies Section */}
-        <div className="mt-6 px-5">
-          <div className="flex justify-between items-center mb-3">
-            <h2 className="text-xl font-semibold text-black">Featured Movies</h2>
-            <button className="text-blue-600 font-medium">See All</button>
-          </div>
-          
-          <div className="flex gap-4 overflow-x-auto pb-4">
-            {featuredMovies.map((movie) => (
-              <MovieCard 
-                key={movie.id} 
-                movie={movie}
-                onPress={() => setSelectedMovie(movie)}
-              />
+        {/* Language Filter */}
+        <div className="px-6 mb-8">
+          <div className="flex gap-2 overflow-x-auto pb-2">
+            {languages.map((lang, index) => (
+              <button
+                key={lang}
+                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+                  index === 0 
+                    ? 'bg-royalBlue-500 text-white' 
+                    : 'bg-card text-secondary hover:bg-slate-800 dark:hover:bg-slate-600'
+                }`}
+              >
+                {lang}
+              </button>
             ))}
           </div>
         </div>
 
-        {/* Quick Actions */}
-        <div className="mt-6 px-5 pb-8">
-          <h2 className="text-xl font-semibold text-black mb-3">Quick Actions</h2>
-          <div className="flex gap-2">
-            <button className="flex-1 bg-white rounded-xl p-4 shadow-sm flex flex-col items-center">
-              <Play size={20} className="text-blue-600 mb-2" />
-              <span className="text-sm font-medium text-black">Random Lesson</span>
-            </button>
-            <button className="flex-1 bg-white rounded-xl p-4 shadow-sm flex flex-col items-center">
-              <Clock size={20} className="text-blue-600 mb-2" />
-              <span className="text-sm font-medium text-black">5-Min Challenge</span>
-            </button>
-            <button className="flex-1 bg-white rounded-xl p-4 shadow-sm flex flex-col items-center">
-              <Star size={20} className="text-blue-600 mb-2" />
-              <span className="text-sm font-medium text-black">Review Words</span>
-            </button>
+        {/* Continue Learning */}
+        <div className="px-6 mb-8">
+          <h2 className="text-xl font-semibold text-primary mb-4">Continue Learning</h2>
+          <div className="space-y-4">
+            {continueMovies.map((movie, index) => (
+              <div key={index} className="bg-card rounded-xl p-4 border border-default">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 bg-royalBlue-500 rounded-xl flex items-center justify-center text-2xl">
+                    {movie.icon}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-primary">{movie.title}</h3>
+                    <p className="text-sm text-secondary">{movie.language} • {movie.difficulty}</p>
+                    <div className="mt-2">
+                      <div className="w-full bg-slate-800 dark:bg-slate-600 rounded-full h-2">
+                        <div 
+                          className="progress-gradient h-2 rounded-full transition-all duration-300"
+                          style={{ width: `${movie.progress}%` }}
+                        ></div>
+                      </div>
+                      <p className="text-xs text-secondary mt-1">{movie.progress}%</p>
+                    </div>
+                  </div>
+                  <button className="bg-navy-900 text-white px-6 py-2 rounded-xl font-semibold flex items-center gap-2">
+                    <Play size={16} />
+                    Continue
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Explore Movies */}
+        <div className="px-6 pb-8">
+          <h2 className="text-xl font-semibold text-primary mb-4">Explore Movies</h2>
+          <div className="space-y-4">
+            {exploreMovies.map((movie, index) => (
+              <div key={index} className="bg-card rounded-xl p-4 border border-default">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 bg-royalBlue-500 rounded-xl flex items-center justify-center text-2xl">
+                    {movie.icon}
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="font-semibold text-primary">{movie.title}</h3>
+                      <div className="flex items-center gap-1">
+                        <Star size={14} className="text-amber-400 fill-current" />
+                        <span className="text-sm font-medium text-secondary">{movie.rating}</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4 text-sm text-secondary mb-2">
+                      <span>{movie.language}</span>
+                      <span>{movie.difficulty}</span>
+                    </div>
+                    <div className="flex items-center gap-4 text-xs text-secondary">
+                      <div className="flex items-center gap-1">
+                        <Clock size={12} />
+                        <span>{movie.duration}</span>
+                      </div>
+                      <span>{movie.scenes}</span>
+                    </div>
+                    <div className="mt-2">
+                      <div className="w-full bg-slate-800 dark:bg-slate-600 rounded-full h-2">
+                        <div 
+                          className="progress-gradient h-2 rounded-full transition-all duration-300"
+                          style={{ width: `${movie.progress}%` }}
+                        ></div>
+                      </div>
+                      <p className="text-xs text-secondary mt-1">{movie.progress}%</p>
+                    </div>
+                  </div>
+                  <button className="bg-navy-900 text-white px-6 py-2 rounded-xl font-semibold flex items-center gap-2">
+                    <Play size={16} />
+                    Continue
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
