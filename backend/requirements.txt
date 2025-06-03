@@ -1,17 +1,13 @@
-# FastAPI and web framework - verified working versions
 fastapi==0.115.0
 uvicorn[standard]==0.32.1
-
-# Authentication and security
 python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
 python-multipart==0.0.12
-
-# Environment and configuration  
 python-dotenv==1.0.1
 pydantic==2.11.5
 pydantic-settings==2.7.0
-
-# Basic development tools
 httpx==0.28.1
 pytest==8.3.4
+psycopg2-binary==2.9.9
+sqlalchemy==2.0.23
+asyncpg==0.29.0
