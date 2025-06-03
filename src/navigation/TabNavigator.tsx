@@ -1,86 +1,53 @@
 
-import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
-import { StatusBar } from 'expo-status-bar';
-import { BookOpen, TrendingUp, Users, User } from 'lucide-react-native';
-
+import React, { useState } from 'react';
+import { BookOpen, TrendingUp, Users, User } from 'lucide-react';
 import LearnScreen from '../screens/LearnScreen';
 import ProgressScreen from '../screens/ProgressScreen';
 import CommunityScreen from '../screens/CommunityScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 
-const Tab = createBottomTabNavigator();
-
 const TabNavigator = () => {
+  const [activeTab, setActiveTab] = useState('Learn');
+
+  const tabs = [
+    { name: 'Learn', icon: BookOpen, component: LearnScreen },
+    { name: 'Progress', icon: TrendingUp, component: ProgressScreen },
+    { name: 'Community', icon: Users, component: CommunityScreen },
+    { name: 'Profile', icon: User, component: ProfileScreen },
+  ];
+
+  const ActiveComponent = tabs.find(tab => tab.name === activeTab)?.component || LearnScreen;
+
   return (
-    <NavigationContainer>
-      <StatusBar style="auto" />
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let IconComponent;
+    <div className="flex flex-col h-screen bg-gray-50">
+      {/* Main content */}
+      <div className="flex-1 overflow-hidden">
+        <ActiveComponent />
+      </div>
 
-            if (route.name === 'Learn') {
-              IconComponent = BookOpen;
-            } else if (route.name === 'Progress') {
-              IconComponent = TrendingUp;
-            } else if (route.name === 'Community') {
-              IconComponent = Users;
-            } else if (route.name === 'Profile') {
-              IconComponent = User;
-            }
-
-            return <IconComponent size={size} color={color} />;
-          },
-          tabBarActiveTintColor: '#007AFF',
-          tabBarInactiveTintColor: '#8E8E93',
-          tabBarStyle: {
-            backgroundColor: '#FFFFFF',
-            borderTopWidth: 0.5,
-            borderTopColor: '#C6C6C8',
-            paddingBottom: 8,
-            paddingTop: 8,
-            height: 88,
-          },
-          tabBarLabelStyle: {
-            fontSize: 10,
-            fontWeight: '500',
-          },
-          headerStyle: {
-            backgroundColor: '#FFFFFF',
-            shadowColor: 'transparent',
-            elevation: 0,
-          },
-          headerTitleStyle: {
-            fontSize: 17,
-            fontWeight: '600',
-            color: '#000000',
-          },
-        })}
-      >
-        <Tab.Screen 
-          name="Learn" 
-          component={LearnScreen}
-          options={{ title: 'Learn' }}
-        />
-        <Tab.Screen 
-          name="Progress" 
-          component={ProgressScreen}
-          options={{ title: 'Progress' }}
-        />
-        <Tab.Screen 
-          name="Community" 
-          component={CommunityScreen}
-          options={{ title: 'Community' }}
-        />
-        <Tab.Screen 
-          name="Profile" 
-          component={ProfileScreen}
-          options={{ title: 'Profile' }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+      {/* Bottom tab bar */}
+      <div className="bg-white border-t border-gray-200 px-4 py-2 safe-area-pb">
+        <div className="flex justify-around items-center h-16">
+          {tabs.map((tab) => {
+            const IconComponent = tab.icon;
+            const isActive = activeTab === tab.name;
+            
+            return (
+              <button
+                key={tab.name}
+                onClick={() => setActiveTab(tab.name)}
+                className={`flex flex-col items-center justify-center flex-1 py-1 transition-colors ${
+                  isActive ? 'text-blue-600' : 'text-gray-500'
+                }`}
+              >
+                <IconComponent size={24} className="mb-1" />
+                <span className="text-xs font-medium">{tab.name}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
   );
 };
 

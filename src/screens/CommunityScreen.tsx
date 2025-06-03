@@ -1,14 +1,6 @@
 
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  SafeAreaView,
-  StyleSheet,
-} from 'react-native';
-import { MessageSquare, Trophy, Users } from 'lucide-react-native';
+import { MessageSquare, Trophy } from 'lucide-react';
 import LeaderboardCard from '../components/LeaderboardCard';
 import CommunityPost from '../components/CommunityPost';
 
@@ -57,156 +49,68 @@ const CommunityScreen = () => {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.title}>Community</Text>
-        <Text style={styles.subtitle}>Learn together with fellow movie lovers</Text>
-      </View>
+    <div className="flex flex-col h-full bg-gray-50">
+      <div className="flex-1 overflow-y-auto">
+        {/* Header */}
+        <div className="p-5 pt-16">
+          <h1 className="text-3xl font-bold text-black mb-1">Community</h1>
+          <p className="text-gray-500">Learn together with fellow movie lovers</p>
+        </div>
 
-      {/* Tab Navigation */}
-      <View style={styles.tabContainer}>
-        <TouchableOpacity
-          style={[styles.tab, activeTab === 'leaderboard' && styles.activeTab]}
-          onPress={() => setActiveTab('leaderboard')}
-        >
-          <Trophy size={20} color={activeTab === 'leaderboard' ? '#007AFF' : '#8E8E93'} />
-          <Text style={[styles.tabText, activeTab === 'leaderboard' && styles.activeTabText]}>
-            Leaderboard
-          </Text>
-        </TouchableOpacity>
+        {/* Tab Navigation */}
+        <div className="flex mx-5 mt-5 bg-white rounded-xl p-1 shadow-sm">
+          <button
+            className={`flex-1 flex items-center justify-center py-3 rounded-lg transition-colors ${
+              activeTab === 'leaderboard' ? 'bg-blue-50 text-blue-600' : 'text-gray-500'
+            }`}
+            onClick={() => setActiveTab('leaderboard')}
+          >
+            <Trophy size={20} className="mr-1.5" />
+            <span className="font-medium text-sm">Leaderboard</span>
+          </button>
 
-        <TouchableOpacity
-          style={[styles.tab, activeTab === 'feed' && styles.activeTab]}
-          onPress={() => setActiveTab('feed')}
-        >
-          <MessageSquare size={20} color={activeTab === 'feed' ? '#007AFF' : '#8E8E93'} />
-          <Text style={[styles.tabText, activeTab === 'feed' && styles.activeTabText]}>
-            Community Feed
-          </Text>
-        </TouchableOpacity>
-      </View>
+          <button
+            className={`flex-1 flex items-center justify-center py-3 rounded-lg transition-colors ${
+              activeTab === 'feed' ? 'bg-blue-50 text-blue-600' : 'text-gray-500'
+            }`}
+            onClick={() => setActiveTab('feed')}
+          >
+            <MessageSquare size={20} className="mr-1.5" />
+            <span className="font-medium text-sm">Community Feed</span>
+          </button>
+        </div>
 
-      {/* Content */}
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
-        {activeTab === 'leaderboard' ? (
-          <View style={styles.leaderboardContainer}>
-            <View style={styles.sectionHeader}>
-              <Text style={styles.sectionTitle}>This Week's Leaders</Text>
-              <TouchableOpacity>
-                <Text style={styles.seeAll}>View All Time</Text>
-              </TouchableOpacity>
-            </View>
-            
-            {leaderboardData.map((user, index) => (
-              <LeaderboardCard key={index} user={user} />
-            ))}
-          </View>
-        ) : (
-          <View style={styles.feedContainer}>
-            <View style={styles.sectionHeader}>
-              <Text style={styles.sectionTitle}>Recent Activity</Text>
-              <TouchableOpacity style={styles.newPostButton}>
-                <Text style={styles.newPostText}>+ New Post</Text>
-              </TouchableOpacity>
-            </View>
-            
-            {communityPosts.map((post) => (
-              <CommunityPost key={post.id} post={post} />
-            ))}
-          </View>
-        )}
-      </ScrollView>
-    </SafeAreaView>
+        {/* Content */}
+        <div className="mt-5 px-5 pb-8">
+          {activeTab === 'leaderboard' ? (
+            <div>
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-semibold text-black">This Week's Leaders</h2>
+                <button className="text-blue-600 font-medium">View All Time</button>
+              </div>
+              
+              {leaderboardData.map((user, index) => (
+                <LeaderboardCard key={index} user={user} />
+              ))}
+            </div>
+          ) : (
+            <div>
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-semibold text-black">Recent Activity</h2>
+                <button className="bg-blue-600 text-white px-3 py-1.5 rounded-lg text-sm font-semibold">
+                  + New Post
+                </button>
+              </div>
+              
+              {communityPosts.map((post) => (
+                <CommunityPost key={post.id} post={post} />
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F2F2F7',
-  },
-  header: {
-    paddingHorizontal: 20,
-    paddingTop: 16,
-    paddingBottom: 8,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: '#000000',
-    marginBottom: 4,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#8E8E93',
-    fontWeight: '400',
-  },
-  tabContainer: {
-    flexDirection: 'row',
-    marginTop: 20,
-    marginHorizontal: 20,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    padding: 4,
-  },
-  tab: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    borderRadius: 8,
-  },
-  activeTab: {
-    backgroundColor: '#E3F2FD',
-  },
-  tabText: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#8E8E93',
-    marginLeft: 6,
-  },
-  activeTabText: {
-    color: '#007AFF',
-  },
-  content: {
-    flex: 1,
-    marginTop: 20,
-  },
-  leaderboardContainer: {
-    paddingHorizontal: 20,
-  },
-  feedContainer: {
-    paddingHorizontal: 20,
-  },
-  sectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#000000',
-  },
-  seeAll: {
-    fontSize: 16,
-    color: '#007AFF',
-    fontWeight: '500',
-  },
-  newPostButton: {
-    backgroundColor: '#007AFF',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 8,
-  },
-  newPostText: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#FFFFFF',
-  },
-});
 
 export default CommunityScreen;

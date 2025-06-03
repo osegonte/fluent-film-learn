@@ -1,20 +1,9 @@
 
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  SafeAreaView,
-  StyleSheet,
-  Dimensions,
-} from 'react-native';
-import { Play, Clock, Star } from 'lucide-react-native';
+import { Play, Clock, Star } from 'lucide-react';
 import MovieCard from '../components/MovieCard';
 import LessonCard from '../components/LessonCard';
 import StreakWidget from '../components/StreakWidget';
-
-const { width } = Dimensions.get('window');
 
 const LearnScreen = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -62,43 +51,35 @@ const LearnScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+    <div className="flex flex-col h-full bg-gray-50">
+      <div className="flex-1 overflow-y-auto">
         {/* Header Section */}
-        <View style={styles.header}>
-          <Text style={styles.greeting}>Good morning!</Text>
-          <Text style={styles.subtitle}>Ready to learn with movies?</Text>
-        </View>
+        <div className="p-5 pt-16">
+          <h1 className="text-3xl font-bold text-black mb-1">Good morning!</h1>
+          <p className="text-gray-500">Ready to learn with movies?</p>
+        </div>
 
         {/* Streak Widget */}
         <StreakWidget />
 
         {/* Continue Learning Section */}
-        <View style={styles.section}>
-          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Continue Learning</Text>
-            <TouchableOpacity>
-              <Text style={styles.seeAll}>See All</Text>
-            </TouchableOpacity>
-          </View>
+        <div className="mt-6 px-5">
+          <div className="flex justify-between items-center mb-3">
+            <h2 className="text-xl font-semibold text-black">Continue Learning</h2>
+            <button className="text-blue-600 font-medium">See All</button>
+          </div>
           
           <LessonCard lesson={continueLesson} />
-        </View>
+        </div>
 
         {/* Featured Movies Section */}
-        <View style={styles.section}>
-          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Featured Movies</Text>
-            <TouchableOpacity>
-              <Text style={styles.seeAll}>See All</Text>
-            </TouchableOpacity>
-          </View>
+        <div className="mt-6 px-5">
+          <div className="flex justify-between items-center mb-3">
+            <h2 className="text-xl font-semibold text-black">Featured Movies</h2>
+            <button className="text-blue-600 font-medium">See All</button>
+          </div>
           
-          <ScrollView 
-            horizontal 
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.moviesContainer}
-          >
+          <div className="flex gap-4 overflow-x-auto pb-4">
             {featuredMovies.map((movie) => (
               <MovieCard 
                 key={movie.id} 
@@ -106,104 +87,30 @@ const LearnScreen = () => {
                 onPress={() => setSelectedMovie(movie)}
               />
             ))}
-          </ScrollView>
-        </View>
+          </div>
+        </div>
 
         {/* Quick Actions */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Quick Actions</Text>
-          <View style={styles.quickActions}>
-            <TouchableOpacity style={styles.actionButton}>
-              <Play size={20} color="#007AFF" />
-              <Text style={styles.actionText}>Random Lesson</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.actionButton}>
-              <Clock size={20} color="#007AFF" />
-              <Text style={styles.actionText}>5-Min Challenge</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.actionButton}>
-              <Star size={20} color="#007AFF" />
-              <Text style={styles.actionText}>Review Words</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+        <div className="mt-6 px-5 pb-8">
+          <h2 className="text-xl font-semibold text-black mb-3">Quick Actions</h2>
+          <div className="flex gap-2">
+            <button className="flex-1 bg-white rounded-xl p-4 shadow-sm flex flex-col items-center">
+              <Play size={20} className="text-blue-600 mb-2" />
+              <span className="text-sm font-medium text-black">Random Lesson</span>
+            </button>
+            <button className="flex-1 bg-white rounded-xl p-4 shadow-sm flex flex-col items-center">
+              <Clock size={20} className="text-blue-600 mb-2" />
+              <span className="text-sm font-medium text-black">5-Min Challenge</span>
+            </button>
+            <button className="flex-1 bg-white rounded-xl p-4 shadow-sm flex flex-col items-center">
+              <Star size={20} className="text-blue-600 mb-2" />
+              <span className="text-sm font-medium text-black">Review Words</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F2F2F7',
-  },
-  header: {
-    paddingHorizontal: 20,
-    paddingTop: 16,
-    paddingBottom: 8,
-  },
-  greeting: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: '#000000',
-    marginBottom: 4,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#8E8E93',
-    fontWeight: '400',
-  },
-  section: {
-    marginTop: 24,
-    paddingHorizontal: 20,
-  },
-  sectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#000000',
-  },
-  seeAll: {
-    fontSize: 16,
-    color: '#007AFF',
-    fontWeight: '500',
-  },
-  moviesContainer: {
-    paddingRight: 20,
-  },
-  quickActions: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 12,
-  },
-  actionButton: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    padding: 16,
-    alignItems: 'center',
-    marginHorizontal: 4,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 3,
-  },
-  actionText: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#000000',
-    marginTop: 8,
-    textAlign: 'center',
-  },
-});
 
 export default LearnScreen;

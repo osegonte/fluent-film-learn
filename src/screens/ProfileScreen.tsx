@@ -1,14 +1,5 @@
 
-import React from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  SafeAreaView,
-  StyleSheet,
-  Switch,
-} from 'react-native';
+import React, { useState } from 'react';
 import { 
   User, 
   Settings, 
@@ -17,10 +8,10 @@ import {
   HelpCircle, 
   LogOut,
   ChevronRight 
-} from 'lucide-react-native';
+} from 'lucide-react';
 
 const ProfileScreen = () => {
-  const [notificationsEnabled, setNotificationsEnabled] = React.useState(true);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
 
   const profileStats = [
     { label: 'Words Learned', value: '1,247' },
@@ -59,289 +50,105 @@ const ProfileScreen = () => {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+    <div className="flex flex-col h-full bg-gray-50">
+      <div className="flex-1 overflow-y-auto">
         {/* Profile Header */}
-        <View style={styles.profileHeader}>
-          <View style={styles.avatarContainer}>
-            <Text style={styles.avatar}>🙋‍♂️</Text>
-          </View>
-          <Text style={styles.userName}>John Doe</Text>
-          <Text style={styles.userLevel}>Intermediate Learner • Level B1</Text>
-          <TouchableOpacity style={styles.editProfileButton}>
-            <Text style={styles.editProfileText}>Edit Profile</Text>
-          </TouchableOpacity>
-        </View>
+        <div className="px-5 py-8 pt-16 text-center">
+          <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span className="text-3xl">🙋‍♂️</span>
+          </div>
+          <h1 className="text-2xl font-bold text-black mb-1">John Doe</h1>
+          <p className="text-gray-500 mb-4">Intermediate Learner • Level B1</p>
+          <button className="bg-blue-600 text-white px-6 py-2 rounded-full text-sm font-semibold">
+            Edit Profile
+          </button>
+        </div>
 
         {/* Stats Grid */}
-        <View style={styles.statsContainer}>
+        <div className="flex bg-white mx-5 rounded-xl p-5 mb-5 shadow-sm">
           {profileStats.map((stat, index) => (
-            <View key={index} style={styles.statItem}>
-              <Text style={styles.statValue}>{stat.value}</Text>
-              <Text style={styles.statLabel}>{stat.label}</Text>
-            </View>
+            <div key={index} className="flex-1 text-center">
+              <div className="text-xl font-bold text-black mb-1">{stat.value}</div>
+              <div className="text-xs text-gray-500">{stat.label}</div>
+            </div>
           ))}
-        </View>
+        </div>
 
         {/* Languages Section */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Learning Languages</Text>
-          <View style={styles.languageContainer}>
-            <View style={styles.languageItem}>
-              <Text style={styles.languageFlag}>🇪🇸</Text>
-              <View style={styles.languageInfo}>
-                <Text style={styles.languageName}>Spanish</Text>
-                <Text style={styles.languageLevel}>Intermediate</Text>
-              </View>
-              <View style={styles.languageProgress}>
-                <View style={[styles.progressBar, { width: '65%' }]} />
-              </View>
-            </View>
+        <div className="px-5 mb-5">
+          <h2 className="text-xl font-semibold text-black mb-4">Learning Languages</h2>
+          <div className="bg-white rounded-xl overflow-hidden shadow-sm">
+            <div className="p-4 border-b border-gray-100 flex items-center">
+              <span className="text-2xl mr-3">🇪🇸</span>
+              <div className="flex-1">
+                <h3 className="font-semibold text-black">Spanish</h3>
+                <p className="text-sm text-gray-500">Intermediate</p>
+              </div>
+              <div className="w-15 h-1 bg-gray-200 rounded-full ml-3">
+                <div className="w-3/5 h-full bg-green-500 rounded-full"></div>
+              </div>
+            </div>
             
-            <View style={styles.languageItem}>
-              <Text style={styles.languageFlag}>🇫🇷</Text>
-              <View style={styles.languageInfo}>
-                <Text style={styles.languageName}>French</Text>
-                <Text style={styles.languageLevel}>Beginner</Text>
-              </View>
-              <View style={styles.languageProgress}>
-                <View style={[styles.progressBar, { width: '30%' }]} />
-              </View>
-            </View>
+            <div className="p-4 border-b border-gray-100 flex items-center">
+              <span className="text-2xl mr-3">🇫🇷</span>
+              <div className="flex-1">
+                <h3 className="font-semibold text-black">French</h3>
+                <p className="text-sm text-gray-500">Beginner</p>
+              </div>
+              <div className="w-15 h-1 bg-gray-200 rounded-full ml-3">
+                <div className="w-1/3 h-full bg-green-500 rounded-full"></div>
+              </div>
+            </div>
 
-            <TouchableOpacity style={styles.addLanguageButton}>
-              <Text style={styles.addLanguageText}>+ Add Language</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+            <button className="p-4 text-center text-blue-600 font-medium">
+              + Add Language
+            </button>
+          </div>
+        </div>
 
         {/* Menu Items */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Settings</Text>
-          <View style={styles.menuContainer}>
+        <div className="px-5 mb-5">
+          <h2 className="text-xl font-semibold text-black mb-4">Settings</h2>
+          <div className="bg-white rounded-xl overflow-hidden shadow-sm">
             {menuItems.map((item, index) => (
-              <TouchableOpacity key={index} style={styles.menuItem}>
-                <View style={styles.menuItemLeft}>
-                  <View style={[styles.menuIcon, item.isPremium && styles.premiumIcon]}>
+              <button key={index} className="w-full p-4 border-b border-gray-100 last:border-b-0 flex items-center">
+                <div className="flex items-center flex-1">
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center mr-3 ${
+                    item.isPremium ? 'bg-orange-50' : 'bg-gray-100'
+                  }`}>
                     <item.icon size={20} color={item.color} />
-                  </View>
-                  <View style={styles.menuItemContent}>
-                    <Text style={styles.menuItemTitle}>{item.title}</Text>
-                    <Text style={styles.menuItemSubtitle}>{item.subtitle}</Text>
-                  </View>
-                </View>
+                  </div>
+                  <div className="flex-1 text-left">
+                    <h3 className="font-medium text-black">{item.title}</h3>
+                    <p className="text-sm text-gray-500">{item.subtitle}</p>
+                  </div>
+                </div>
                 {item.hasSwitch ? (
-                  <Switch
-                    value={notificationsEnabled}
-                    onValueChange={setNotificationsEnabled}
-                    trackColor={{ false: '#E5E5EA', true: '#34C759' }}
-                    thumbColor="#FFFFFF"
-                  />
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={notificationsEnabled}
+                      onChange={(e) => setNotificationsEnabled(e.target.checked)}
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                  </label>
                 ) : (
-                  <ChevronRight size={20} color="#C6C6C8" />
+                  <ChevronRight size={20} className="text-gray-300" />
                 )}
-              </TouchableOpacity>
+              </button>
             ))}
-          </View>
-        </View>
+          </div>
+        </div>
 
         {/* Sign Out */}
-        <TouchableOpacity style={styles.signOutButton}>
-          <LogOut size={20} color="#FF3B30" />
-          <Text style={styles.signOutText}>Sign Out</Text>
-        </TouchableOpacity>
-      </ScrollView>
-    </SafeAreaView>
+        <button className="flex items-center justify-center bg-white mx-5 mb-10 p-4 rounded-xl shadow-sm">
+          <LogOut size={20} className="text-red-600 mr-2" />
+          <span className="font-medium text-red-600">Sign Out</span>
+        </button>
+      </div>
+    </div>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F2F2F7',
-  },
-  profileHeader: {
-    alignItems: 'center',
-    paddingVertical: 32,
-    paddingHorizontal: 20,
-  },
-  avatarContainer: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: '#E3F2FD',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  avatar: {
-    fontSize: 32,
-  },
-  userName: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#000000',
-    marginBottom: 4,
-  },
-  userLevel: {
-    fontSize: 16,
-    color: '#8E8E93',
-    marginBottom: 16,
-  },
-  editProfileButton: {
-    backgroundColor: '#007AFF',
-    paddingHorizontal: 24,
-    paddingVertical: 8,
-    borderRadius: 20,
-  },
-  editProfileText: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#FFFFFF',
-  },
-  statsContainer: {
-    flexDirection: 'row',
-    backgroundColor: '#FFFFFF',
-    marginHorizontal: 20,
-    borderRadius: 12,
-    padding: 20,
-    marginBottom: 20,
-  },
-  statItem: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  statValue: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#000000',
-    marginBottom: 4,
-  },
-  statLabel: {
-    fontSize: 12,
-    color: '#8E8E93',
-    textAlign: 'center',
-  },
-  section: {
-    marginTop: 20,
-    paddingHorizontal: 20,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#000000',
-    marginBottom: 16,
-  },
-  languageContainer: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    overflow: 'hidden',
-  },
-  languageItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 16,
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#C6C6C8',
-  },
-  languageFlag: {
-    fontSize: 24,
-    marginRight: 12,
-  },
-  languageInfo: {
-    flex: 1,
-  },
-  languageName: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#000000',
-    marginBottom: 2,
-  },
-  languageLevel: {
-    fontSize: 14,
-    color: '#8E8E93',
-  },
-  languageProgress: {
-    width: 60,
-    height: 4,
-    backgroundColor: '#E5E5EA',
-    borderRadius: 2,
-    marginLeft: 12,
-  },
-  progressBar: {
-    height: '100%',
-    backgroundColor: '#34C759',
-    borderRadius: 2,
-  },
-  addLanguageButton: {
-    padding: 16,
-    alignItems: 'center',
-  },
-  addLanguageText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#007AFF',
-  },
-  menuContainer: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    overflow: 'hidden',
-  },
-  menuItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 16,
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#C6C6C8',
-  },
-  menuItemLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-  },
-  menuIcon: {
-    width: 32,
-    height: 32,
-    borderRadius: 8,
-    backgroundColor: '#F2F2F7',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 12,
-  },
-  premiumIcon: {
-    backgroundColor: '#FFF3E0',
-  },
-  menuItemContent: {
-    flex: 1,
-  },
-  menuItemTitle: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#000000',
-    marginBottom: 2,
-  },
-  menuItemSubtitle: {
-    fontSize: 14,
-    color: '#8E8E93',
-  },
-  signOutButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
-    marginHorizontal: 20,
-    marginTop: 20,
-    marginBottom: 40,
-    padding: 16,
-    borderRadius: 12,
-  },
-  signOutText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#FF3B30',
-    marginLeft: 8,
-  },
-});
 
 export default ProfileScreen;

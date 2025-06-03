@@ -1,19 +1,9 @@
 
 import React from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  SafeAreaView,
-  StyleSheet,
-  Dimensions,
-} from 'react-native';
-import { TrendingUp, Target, Calendar, Award } from 'lucide-react-native';
+import { TrendingUp, Target, Calendar, Award } from 'lucide-react';
 import StatsCard from '../components/StatsCard';
 import WeeklyHeatmap from '../components/WeeklyHeatmap';
 import ProgressChart from '../components/ProgressChart';
-
-const { width } = Dimensions.get('window');
 
 const ProgressScreen = () => {
   const stats = [
@@ -48,161 +38,74 @@ const ProgressScreen = () => {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+    <div className="flex flex-col h-full bg-gray-50">
+      <div className="flex-1 overflow-y-auto">
         {/* Header */}
-        <View style={styles.header}>
-          <Text style={styles.title}>Your Progress</Text>
-          <Text style={styles.subtitle}>Keep up the great work!</Text>
-        </View>
+        <div className="p-5 pt-16">
+          <h1 className="text-3xl font-bold text-black mb-1">Your Progress</h1>
+          <p className="text-gray-500">Keep up the great work!</p>
+        </div>
 
         {/* Stats Grid */}
-        <View style={styles.statsGrid}>
+        <div className="grid grid-cols-2 gap-2 px-4 mt-5">
           {stats.map((stat, index) => (
             <StatsCard key={index} stat={stat} />
           ))}
-        </View>
+        </div>
 
         {/* Weekly Activity */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Weekly Activity</Text>
+        <div className="mt-8 px-5">
+          <h2 className="text-xl font-semibold text-black mb-4">Weekly Activity</h2>
           <WeeklyHeatmap />
-        </View>
+        </div>
 
         {/* Learning Progress Chart */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Learning Curve</Text>
+        <div className="mt-8 px-5">
+          <h2 className="text-xl font-semibold text-black mb-4">Learning Curve</h2>
           <ProgressChart />
-        </View>
+        </div>
 
         {/* Recent Achievements */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Recent Achievements</Text>
-          <View style={styles.achievementsList}>
-            <View style={styles.achievementItem}>
-              <View style={styles.achievementIcon}>
-                <Text style={styles.achievementEmoji}>🔥</Text>
-              </View>
-              <View style={styles.achievementContent}>
-                <Text style={styles.achievementTitle}>Week Warrior</Text>
-                <Text style={styles.achievementDescription}>
-                  Completed lessons 7 days in a row
-                </Text>
-              </View>
-              <Text style={styles.achievementDate}>2 days ago</Text>
-            </View>
+        <div className="mt-8 px-5 pb-8">
+          <h2 className="text-xl font-semibold text-black mb-4">Recent Achievements</h2>
+          <div className="bg-white rounded-xl overflow-hidden shadow-sm">
+            <div className="p-4 border-b border-gray-100 flex items-center">
+              <div className="w-11 h-11 bg-gray-100 rounded-full flex items-center justify-center mr-3">
+                <span className="text-xl">🔥</span>
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold text-black">Week Warrior</h3>
+                <p className="text-sm text-gray-500">Completed lessons 7 days in a row</p>
+              </div>
+              <span className="text-xs text-gray-500 font-medium">2 days ago</span>
+            </div>
             
-            <View style={styles.achievementItem}>
-              <View style={styles.achievementIcon}>
-                <Text style={styles.achievementEmoji}>🎯</Text>
-              </View>
-              <View style={styles.achievementContent}>
-                <Text style={styles.achievementTitle}>Perfect Score</Text>
-                <Text style={styles.achievementDescription}>
-                  Got 100% on a lesson quiz
-                </Text>
-              </View>
-              <Text style={styles.achievementDate}>1 week ago</Text>
-            </View>
+            <div className="p-4 border-b border-gray-100 flex items-center">
+              <div className="w-11 h-11 bg-gray-100 rounded-full flex items-center justify-center mr-3">
+                <span className="text-xl">🎯</span>
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold text-black">Perfect Score</h3>
+                <p className="text-sm text-gray-500">Got 100% on a lesson quiz</p>
+              </div>
+              <span className="text-xs text-gray-500 font-medium">1 week ago</span>
+            </div>
 
-            <View style={styles.achievementItem}>
-              <View style={styles.achievementIcon}>
-                <Text style={styles.achievementEmoji}>📚</Text>
-              </View>
-              <View style={styles.achievementContent}>
-                <Text style={styles.achievementTitle}>Vocabulary Master</Text>
-                <Text style={styles.achievementDescription}>
-                  Learned 1000+ words
-                </Text>
-              </View>
-              <Text style={styles.achievementDate}>2 weeks ago</Text>
-            </View>
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+            <div className="p-4 flex items-center">
+              <div className="w-11 h-11 bg-gray-100 rounded-full flex items-center justify-center mr-3">
+                <span className="text-xl">📚</span>
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold text-black">Vocabulary Master</h3>
+                <p className="text-sm text-gray-500">Learned 1000+ words</p>
+              </div>
+              <span className="text-xs text-gray-500 font-medium">2 weeks ago</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F2F2F7',
-  },
-  header: {
-    paddingHorizontal: 20,
-    paddingTop: 16,
-    paddingBottom: 8,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: '#000000',
-    marginBottom: 4,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#8E8E93',
-    fontWeight: '400',
-  },
-  statsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    paddingHorizontal: 16,
-    marginTop: 20,
-  },
-  section: {
-    marginTop: 32,
-    paddingHorizontal: 20,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#000000',
-    marginBottom: 16,
-  },
-  achievementsList: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    overflow: 'hidden',
-  },
-  achievementItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 16,
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#C6C6C8',
-  },
-  achievementIcon: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: '#F2F2F7',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 12,
-  },
-  achievementEmoji: {
-    fontSize: 20,
-  },
-  achievementContent: {
-    flex: 1,
-  },
-  achievementTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#000000',
-    marginBottom: 2,
-  },
-  achievementDescription: {
-    fontSize: 14,
-    color: '#8E8E93',
-  },
-  achievementDate: {
-    fontSize: 12,
-    color: '#8E8E93',
-    fontWeight: '500',
-  },
-});
 
 export default ProgressScreen;
