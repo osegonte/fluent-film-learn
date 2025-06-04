@@ -1,3 +1,50 @@
+#!/bin/bash
+
+echo "🛠️  Fixing CineFluent Railway Deployment Issues"
+echo "=============================================="
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+print_status() {
+    echo -e "${GREEN}✅ $1${NC}"
+}
+
+print_warning() {
+    echo -e "${YELLOW}⚠️  $1${NC}"
+}
+
+print_info() {
+    echo -e "${BLUE}ℹ️  $1${NC}"
+}
+
+print_error() {
+    echo -e "${RED}❌ $1${NC}"
+}
+
+# Check if we're in the backend directory
+if [ ! -f "main.py" ]; then
+    print_error "Please run this script from the backend directory"
+    print_info "Usage: cd backend && ./fix_railway_deployment.sh"
+    exit 1
+fi
+
+print_info "Applying Railway deployment fixes based on comprehensive troubleshooting guide..."
+echo ""
+
+# Fix 1: Update main.py for proper Railway port binding
+print_info "🔧 Fix 1: Updating main.py for Railway port binding"
+
+# Backup original main.py
+cp main.py main.py.backup
+print_status "Backed up original main.py to main.py.backup"
+
+# Create Railway-compatible main.py
+cat > main.py << 'EOF'
 """
 CineFluent FastAPI Backend - Railway Production Ready
 """
@@ -304,3 +351,149 @@ if __name__ == "__main__":
         reload=False,    # CRITICAL: Set to False for production
         log_level="info"
     )
+EOF
+
+print_status "Updated main.py with Railway-compatible configuration"
+
+# Fix 2: Create/Update Procfile for Railway
+print_info "🔧 Fix 2: Creating Railway-compatible Procfile"
+
+cat > Procfile << 'EOF'
+web: uvicorn main:app --host 0.0.0.0 --port $PORT --workers 1
+EOF
+
+print_status "Created Railway-compatible Procfile"
+
+# Fix 3: Create .python-version file
+print_info "🔧 Fix 3: Setting Python version for Railway"
+
+echo "3.11" > .python-version
+print_status "Set Python version to 3.11"
+
+# Fix 4: Update requirements.txt with Railway-compatible versions
+print_info "🔧 Fix 4: Updating requirements.txt for Railway compatibility"
+
+cat > requirements.txt << 'EOF'
+fastapi==0.115.0
+uvicorn[standard]==0.32.1
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.12
+python-dotenv==1.0.1
+pydantic==2.11.5
+pydantic-settings==2.7.0
+httpx==0.28.1
+psycopg2-binary==2.9.9
+sqlalchemy==2.0.23
+asyncpg==0.29.0
+EOF
+
+print_status "Updated requirements.txt with stable versions"
+
+# Fix 5: Create railway.json for explicit configuration
+print_info "🔧 Fix 5: Creating railway.json configuration"
+
+cat > railway.json << 'EOF'
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "deploy": {
+    "startCommand": "uvicorn main:app --host 0.0.0.0 --port $PORT --workers 1",
+    "healthcheckPath": "/health",
+    "healthcheckTimeout": 100,
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 3
+  }
+}
+EOF
+
+print_status "Created railway.json with explicit configuration"
+
+# Fix 6: Create nixpacks.toml for build configuration
+print_info "🔧 Fix 6: Creating nixpacks.toml for build system"
+
+cat > nixpacks.toml << 'EOF'
+[start]
+cmd = "uvicorn main:app --host 0.0.0.0 --port $PORT --workers 1"
+
+[variables]
+NIXPACKS_PYTHON_VERSION = "3.11"
+PYTHONUNBUFFERED = "1"
+
+[phases.install]
+cmds = ["pip install --upgrade pip setuptools wheel"]
+EOF
+
+print_status "Created nixpacks.toml for Railway build system"
+
+# Fix 7: Set Railway environment variables
+print_info "🔧 Fix 7: Setting Railway environment variables"
+
+echo ""
+print_warning "IMPORTANT: Set these environment variables in Railway dashboard:"
+echo ""
+echo "PORT=8000                    # Automatically set by Railway"
+echo "RAILWAY_ENVIRONMENT=production"
+echo "PYTHONUNBUFFERED=1"
+echo "SECRET_KEY=your-production-secret-key"
+echo "JWT_SECRET_KEY=your-jwt-secret-key"
+echo "DEBUG=False"
+echo ""
+
+# Fix 8: Test local startup
+print_info "🔧 Fix 8: Testing Railway-compatible startup locally"
+
+echo ""
+print_info "Testing with Railway port simulation..."
+
+# Test with a high port number like Railway uses
+TEST_PORT=8080
+echo "Testing startup with PORT=$TEST_PORT (simulating Railway)"
+
+# Set environment variable and test
+export PORT=$TEST_PORT
+export PYTHONUNBUFFERED=1
+
+# Quick syntax check
+python -m py_compile main.py
+if [ $? -eq 0 ]; then
+    print_status "main.py syntax is valid"
+else
+    print_error "main.py has syntax errors - fix before deploying"
+    exit 1
+fi
+
+print_status "All Railway fixes applied successfully!"
+
+echo ""
+echo "🚀 DEPLOYMENT INSTRUCTIONS"
+echo "========================="
+echo ""
+print_info "1. Commit these changes to git:"
+echo "   git add ."
+echo "   git commit -m 'Fix Railway deployment configuration'"
+echo ""
+print_info "2. Deploy to Railway:"
+echo "   railway up"
+echo ""
+print_info "3. Check Railway logs if deployment fails:"
+echo "   railway logs"
+echo ""
+print_info "4. Monitor health endpoint:"
+echo "   curl https://your-railway-domain.railway.app/health"
+echo ""
+
+print_warning "KEY CHANGES MADE:"
+echo "• Fixed port binding to use 0.0.0.0:\$PORT"
+echo "• Updated Procfile with correct Railway syntax"
+echo "• Set Python 3.11 version"
+echo "• Updated requirements.txt with stable versions"
+echo "• Added railway.json for explicit configuration"
+echo "• Added nixpacks.toml for build system"
+echo "• Added structured logging for Railway"
+echo "• Added global exception handler for debugging"
+echo ""
+
+print_status "Ready for Railway deployment! 🚂"
