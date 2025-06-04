@@ -15,7 +15,7 @@
     --state-error: #FF3B30;
     --spark: #FF9500;
 
-    /* shadcn compatibility */
+    /* Enhanced shadcn compatibility */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -36,6 +36,11 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 221 83% 53%;
     --radius: 12px;
+
+    /* Enhanced brand colors */
+    --success: 142 76% 45%;
+    --warning: 48 100% 63%;
+    --surface-alt: 210 16% 93%;
   }
 
   html.dark {
@@ -69,6 +74,10 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 213 93% 67%;
+
+    --success: 142 70% 49%;
+    --warning: 48 100% 70%;
+    --surface-alt: 240 2% 14%;
   }
 }
 
@@ -78,202 +87,121 @@
     box-sizing: border-box;
   }
 
-  html {
-    overflow-x: hidden;
-    -webkit-text-size-adjust: 100%;
-    scroll-behavior: smooth;
-  }
-
   body {
     @apply bg-background text-foreground;
-    /* Apple HIG: San Francisco font family */
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
-    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 17px;
-    line-height: 1.47;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-
-  /* Allow text selection in content areas */
-  p, span, div[role="textbox"], input, textarea {
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
-    user-select: text;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
 
-/* Apple HIG utilities */
-@layer utilities {
-  /* Safe areas for devices with notches */
-  .safe-area-top {
-    padding-top: max(env(safe-area-inset-top), 16px);
+@layer components {
+  /* Enhanced mobile-first card styling */
+  .mobile-card {
+    @apply rounded-xl bg-card backdrop-blur-sm border border-border/50 shadow-lg;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
   }
   
-  .safe-area-bottom {
-    padding-bottom: max(env(safe-area-inset-bottom), 16px);
+  .mobile-card:hover {
+    @apply shadow-xl scale-[1.02];
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
 
-  .safe-area-left {
-    padding-left: env(safe-area-inset-left);
+  /* Enhanced progress bars */
+  .progress-enhanced {
+    @apply h-2 bg-muted rounded-full overflow-hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .progress-enhanced .progress-fill {
+    @apply h-full bg-primary rounded-full transition-all duration-500 ease-out min-w-[8px];
+    background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--primary) / 0.8));
   }
 
-  .safe-area-right {
-    padding-right: env(safe-area-inset-right);
-  }
-
-  /* Apple HIG button styles */
-  .btn-primary {
-    @apply bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all duration-200;
-    min-height: 44px;
-    padding: 12px 24px;
-    font-size: 17px;
-    touch-action: manipulation;
-    transform: scale(1);
-  }
-
-  .btn-primary:active {
-    transform: scale(0.98);
-  }
-
-  .btn-secondary {
-    @apply bg-card border border-border text-foreground hover:bg-accent font-medium rounded-xl transition-all duration-200;
-    min-height: 44px;
-    padding: 12px 24px;
-    font-size: 17px;
-    touch-action: manipulation;
-    transform: scale(1);
-  }
-
-  .btn-secondary:active {
-    transform: scale(0.98);
-  }
-
-  /* Apple HIG card styles */
-  .card-ios {
-    @apply bg-card rounded-xl border-0 shadow-sm;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-
-  /* Apple HIG input styles */
-  .input-ios {
-    @apply bg-card border border-border rounded-xl px-4 py-3;
-    min-height: 44px;
-    font-size: 17px;
-  }
-
-  .input-ios:focus {
-    @apply border-blue-600 ring-0 outline-none;
-  }
-
-  /* Apple HIG progress indicators */
-  .progress-ios {
-    @apply bg-border rounded-full overflow-hidden;
-    height: 4px;
-  }
-
-  .progress-fill-ios {
-    @apply bg-blue-600 rounded-full transition-all duration-300;
-    height: 100%;
-  }
-
-  /* Tab bar */
-  .tab-bar-ios {
-    @apply bg-card border-t border-border;
-    height: 83px;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-  }
-
-  /* Typography utilities */
-  .text-large-title {
-    font-size: 34px;
-    font-weight: 700;
-    line-height: 1.2;
-  }
-
-  .text-title-1 {
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 1.25;
-  }
-
-  .text-title-2 {
-    font-size: 22px;
-    font-weight: 700;
-    line-height: 1.27;
-  }
-
-  .text-title-3 {
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 1.3;
-  }
-
+  /* Typography hierarchy */
   .text-headline {
-    font-size: 17px;
-    font-weight: 600;
-    line-height: 1.35;
+    @apply text-2xl font-bold tracking-tight text-foreground;
   }
-
+  
+  .text-title {
+    @apply text-lg font-semibold text-foreground;
+  }
+  
   .text-body {
-    font-size: 17px;
-    font-weight: 400;
-    line-height: 1.47;
+    @apply text-sm text-muted-foreground leading-relaxed;
   }
-
-  .text-callout {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.44;
-  }
-
-  .text-subhead {
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 1.47;
-  }
-
-  .text-footnote {
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 1.54;
-  }
-
+  
   .text-caption {
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 1.5;
+    @apply text-xs text-muted-foreground/80 font-medium;
   }
 
-  /* Animation utilities */
-  .animation-ios {
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* Enhanced button improvements */
+  .btn-mobile {
+    @apply min-h-[44px] px-4 py-3 rounded-lg font-medium transition-all duration-200;
+    transform: translateZ(0);
+  }
+  
+  .btn-mobile:active {
+    @apply scale-95;
   }
 
-  .animation-spring-ios {
-    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  .btn-mobile:hover {
+    transform: translateY(-1px);
+  }
+
+  /* Gradient backgrounds */
+  .gradient-bg-light {
+    background: linear-gradient(135deg, 
+      hsl(var(--background)) 0%, 
+      hsl(221 83% 98%) 50%, 
+      hsl(var(--background)) 100%);
+  }
+
+  .gradient-bg-dark {
+    background: linear-gradient(135deg, 
+      hsl(var(--background)) 0%, 
+      hsl(240 6% 8%) 50%, 
+      hsl(var(--background)) 100%);
+  }
+
+  /* Enhanced focus states */
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+
+  /* Tabular numbers for metrics */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+
+  /* Brand utilities */
+  .text-success {
+    color: hsl(var(--success));
+  }
+  
+  .text-warning {
+    color: hsl(var(--warning));
+  }
+  
+  .bg-success {
+    background-color: hsl(var(--success));
+  }
+  
+  .bg-warning {
+    background-color: hsl(var(--warning));
+  }
+  
+  .bg-surface-alt {
+    background-color: hsl(var(--surface-alt));
   }
 }
 
-/* Dark mode adaptations */
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-  }
-}
-
-/* Reduce motion */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+/* Smooth transitions for theme switching */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
 }
