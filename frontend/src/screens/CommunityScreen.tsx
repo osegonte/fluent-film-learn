@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { MessageCircle, Trophy, Send } from 'lucide-react';
 
@@ -26,13 +25,6 @@ const CommunityScreen = () => {
       time: '1h ago',
       content: 'Tip: Use the \'Export to Anki\' feature after each lesson. It\'s been a game changer for retention! 🧠',
       likes: 23
-    },
-    {
-      user: 'Akira Tanaka',
-      initials: 'AT',
-      time: '2h ago',
-      content: '45-day streak achieved! This app makes learning so addictive 🔥',
-      likes: 18
     }
   ];
 
@@ -45,108 +37,130 @@ const CommunityScreen = () => {
   ];
 
   return (
-    <div className="flex flex-col h-full bg-canvas">
-      <div className="flex-1 overflow-y-auto">
-        {/* Header */}
-        <div className="px-6 py-8 pt-16 text-center">
-          <h1 className="text-3xl font-bold text-primary mb-2">Community</h1>
-          <p className="text-secondary">Connect with fellow learners</p>
-        </div>
+    <div className="flex flex-col min-h-full bg-bg-canvas">
+      {/* Header */}
+      <div className="px-6 py-8 text-center">
+        <h1 className="text-large-title font-bold text-content-primary mb-2">
+          Community
+        </h1>
+        <p className="text-body text-content-secondary">
+          Connect with fellow learners
+        </p>
+      </div>
 
-        {/* Tab Navigation */}
-        <div className="px-6 mb-6">
-          <div className="bg-card rounded-xl p-1 border border-default flex">
-            <button
-              onClick={() => setActiveTab('Chat')}
-              className={`flex-1 flex items-center justify-center py-3 rounded-lg transition-colors ${
-                activeTab === 'Chat' 
-                  ? 'bg-royalBlue-500 text-white' 
-                  : 'text-secondary hover:text-primary'
-              }`}
-            >
-              <MessageCircle size={20} className="mr-2" />
-              <span className="font-medium">Chat</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('Leaderboard')}
-              className={`flex-1 flex items-center justify-center py-3 rounded-lg transition-colors ${
-                activeTab === 'Leaderboard' 
-                  ? 'bg-royalBlue-500 text-white' 
-                  : 'text-secondary hover:text-primary'
-              }`}
-            >
-              <Trophy size={20} className="mr-2" />
-              <span className="font-medium">Leaderboard</span>
-            </button>
-          </div>
+      {/* Tab Navigation - Apple HIG: Segmented control */}
+      <div className="px-4 mb-6">
+        <div className="bg-card rounded-xl p-1 flex">
+          <button
+            onClick={() => setActiveTab('Chat')}
+            className={`flex-1 flex items-center justify-center py-3 rounded-lg transition-all duration-200 ${
+              activeTab === 'Chat' 
+                ? 'bg-accent-solid text-white shadow-sm' 
+                : 'text-content-secondary hover:text-content-primary'
+            }`}
+          >
+            <MessageCircle size={20} className="mr-2" />
+            <span className="text-callout font-medium">Chat</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('Leaderboard')}
+            className={`flex-1 flex items-center justify-center py-3 rounded-lg transition-all duration-200 ${
+              activeTab === 'Leaderboard' 
+                ? 'bg-accent-solid text-white shadow-sm' 
+                : 'text-content-secondary hover:text-content-primary'
+            }`}
+          >
+            <Trophy size={20} className="mr-2" />
+            <span className="text-callout font-medium">Leaderboard</span>
+          </button>
         </div>
+      </div>
 
-        {/* Content */}
-        <div className="px-6 pb-8">
-          {activeTab === 'Chat' ? (
-            <div className="space-y-4">
-              {posts.map((post, index) => (
-                <div key={index} className="bg-card rounded-xl p-4 border border-default">
+      {/* Content */}
+      <div className="flex-1 pb-8">
+        {activeTab === 'Chat' ? (
+          <div className="space-y-4">
+            {posts.map((post, index) => (
+              <div key={index} className="card-ios mx-4">
+                <div className="p-4">
                   <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 bg-royalBlue-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                    <div className="w-10 h-10 bg-accent-solid rounded-full flex items-center justify-center text-white font-semibold text-footnote">
                       {post.initials}
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-semibold text-primary">{post.user}</h3>
-                        <span className="text-xs text-secondary">{post.time}</span>
+                        <h3 className="text-callout font-semibold text-content-primary">
+                          {post.user}
+                        </h3>
+                        <span className="text-caption text-content-secondary">
+                          {post.time}
+                        </span>
                       </div>
-                      <p className="text-primary mb-3 leading-relaxed">{post.content}</p>
-                      <button className="flex items-center gap-1 text-secondary hover:text-primary transition-colors">
-                        <span className="text-sm">❤️</span>
-                        <span className="text-sm font-medium">{post.likes}</span>
+                      <p className="text-body text-content-primary mb-3 leading-relaxed">
+                        {post.content}
+                      </p>
+                      <button className="flex items-center gap-1 text-content-secondary hover:text-state-error transition-colors">
+                        <span className="text-footnote">❤️</span>
+                        <span className="text-footnote font-medium">{post.likes}</span>
                       </button>
                     </div>
                   </div>
                 </div>
-              ))}
-              
-              {/* Message Input */}
-              <div className="bg-card rounded-xl p-4 border border-default">
+              </div>
+            ))}
+            
+            {/* Message Input */}
+            <div className="card-ios mx-4">
+              <div className="p-4">
                 <div className="flex items-center gap-3">
                   <input
                     type="text"
                     placeholder="Share your progress or ask for help..."
-                    className="flex-1 bg-slate-800 dark:bg-slate-600 text-primary placeholder-secondary px-4 py-3 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-royalBlue-500"
+                    className="input-ios flex-1 text-body"
                   />
-                  <button className="bg-navy-900 text-white p-3 rounded-xl hover:bg-royalBlue-500 transition-colors">
+                  <button className="bg-accent-solid text-white p-3 rounded-xl hover:opacity-80 transition-opacity">
                     <Send size={18} />
                   </button>
                 </div>
               </div>
             </div>
-          ) : (
-            <div className="space-y-3">
-              {leaderboard.map((user, index) => (
-                <div key={index} className={`bg-card rounded-xl p-4 border border-default ${
-                  user.isCurrentUser ? 'ring-2 ring-royalBlue-500 bg-royalBlue-500 bg-opacity-5' : ''
-                }`}>
+          </div>
+        ) : (
+          <div className="space-y-3 px-4">
+            {leaderboard.map((user, index) => (
+              <div key={index} className={`card-ios ${
+                user.isCurrentUser ? 'ring-2 ring-accent-solid bg-accent-solid bg-opacity-5' : ''
+              }`}>
+                <div className="p-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 bg-slate-800 dark:bg-slate-600 rounded-full flex items-center justify-center">
-                      <span className="font-bold text-sm text-secondary">#{user.rank}</span>
+                    <div className="w-8 h-8 bg-content-secondary bg-opacity-10 rounded-full flex items-center justify-center">
+                      <span className="text-footnote font-bold text-content-secondary">
+                        #{user.rank}
+                      </span>
                     </div>
-                    <div className="w-10 h-10 bg-royalBlue-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                    <div className="w-10 h-10 bg-accent-solid rounded-full flex items-center justify-center text-white font-semibold text-footnote">
                       {user.name.split(' ').map(n => n[0]).join('')}
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-primary">{user.name}</h3>
-                      <p className="text-sm text-secondary">{user.points.toLocaleString()} points</p>
+                      <h3 className="text-callout font-semibold text-content-primary">
+                        {user.name}
+                      </h3>
+                      <p className="text-footnote text-content-secondary">
+                        {user.points.toLocaleString()} points
+                      </p>
                     </div>
                     <div className="flex items-center gap-1">
-                      <span className="text-persimmon-500">🔥</span>
-                      <span className="text-sm font-medium text-secondary">{user.streak}</span>
+                      <span className="text-spark">🔥</span>
+                      <span className="text-footnote font-medium text-content-secondary">
+                        {user.streak}
+                      </span>
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

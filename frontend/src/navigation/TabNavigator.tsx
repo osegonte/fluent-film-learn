@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { BookOpen, TrendingUp, Users, User } from 'lucide-react';
 import LearnScreen from '../screens/LearnScreen';
@@ -19,15 +18,17 @@ const TabNavigator = () => {
   const ActiveComponent = tabs.find(tab => tab.name === activeTab)?.component || LearnScreen;
 
   return (
-    <div className="flex flex-col h-screen bg-canvas">
-      {/* Main content */}
-      <div className="flex-1 overflow-hidden">
-        <ActiveComponent />
+    <div className="flex flex-col h-screen bg-background overflow-hidden">
+      {/* Main content - Apple HIG: Content area */}
+      <div className="flex-1 overflow-y-auto overflow-x-hidden">
+        <div className="safe-area-top">
+          <ActiveComponent />
+        </div>
       </div>
 
-      {/* Bottom tab bar */}
-      <div className="bg-card border-t border-default px-4 py-2">
-        <div className="flex justify-around items-center h-16 max-w-md mx-auto">
+      {/* Tab Bar - Apple HIG: 49pt height + safe area */}
+      <div className="tab-bar-ios safe-area-bottom">
+        <div className="flex justify-around items-center h-[49px] px-2">
           {tabs.map((tab) => {
             const IconComponent = tab.icon;
             const isActive = activeTab === tab.name;
@@ -36,12 +37,23 @@ const TabNavigator = () => {
               <button
                 key={tab.name}
                 onClick={() => setActiveTab(tab.name)}
-                className={`flex flex-col items-center justify-center flex-1 py-1 transition-colors ${
-                  isActive ? 'text-royalBlue-500' : 'text-secondary'
+                className={`flex flex-col items-center justify-center flex-1 py-1 transition-all duration-200 animation-ios ${
+                  isActive ? 'text-blue-600' : 'text-muted-foreground'
                 }`}
+                style={{
+                  minHeight: '44px',
+                  minWidth: '44px'
+                }}
               >
-                <IconComponent size={24} className="mb-1" />
-                <span className="text-xs font-medium">{tab.name}</span>
+                <IconComponent 
+                  size={24} 
+                  className={`mb-1 transition-all duration-200 ${
+                    isActive ? 'scale-110' : 'scale-100'
+                  }`} 
+                />
+                <span className="text-caption font-medium leading-none">
+                  {tab.name}
+                </span>
               </button>
             );
           })}

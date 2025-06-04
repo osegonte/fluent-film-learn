@@ -100,3 +100,6 @@ site/
 *.bak
 *.backup
 *~
+
+# Local Netlify folder
+.netlify

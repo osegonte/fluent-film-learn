@@ -2,19 +2,32 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Apple HIG: Proper viewport for iOS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    
+    <!-- Apple HIG: Status bar styling -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="CineFluent">
+    
+    <!-- Apple HIG: Home screen icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    
+    <!-- Apple HIG: Splash screen -->
+    <meta name="apple-mobile-web-app-title" content="CineFluent">
+    <link rel="apple-touch-startup-image" href="/apple-splash-2048-2732.png">
+    
+    <!-- Apple HIG: Theme color -->
+    <meta name="theme-color" content="#1580FF">
+    <meta name="msapplication-TileColor" content="#1580FF">
+    
     <title>CineFluent - Learn Languages Through Movies</title>
     <meta name="description" content="Master languages through your favorite films with CineFluent" />
-    <meta name="author" content="CineFluent Team" />
-
-    <meta property="og:title" content="CineFluent - Learn Languages Through Movies" />
-    <meta property="og:description" content="Master languages through your favorite films with CineFluent" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    
+    <!-- Apple HIG: Prevent automatic phone number detection -->
+    <meta name="format-detection" content="telephone=no">
   </head>
 
   <body>

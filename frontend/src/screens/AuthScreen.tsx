@@ -2,9 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
-import { Label } from '../components/ui/label';
 
 const AuthScreen = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -17,12 +14,10 @@ const AuthScreen = () => {
 
   const { login, register, isLoading, error, clearError } = useAuth();
 
-  // Clear errors when switching between login/register
   useEffect(() => {
     clearError();
   }, [isLogin, clearError]);
 
-  // Clear errors when user starts typing
   useEffect(() => {
     if (error) {
       clearError();
@@ -54,136 +49,147 @@ const AuthScreen = () => {
   const hasGeneralError = error && !error.field;
 
   return (
-    <div className="min-h-screen bg-canvas flex items-center justify-center px-6">
-      <div className="w-full max-w-md">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-primary mb-2">cinefluent</h1>
-          <p className="text-secondary">Learn languages through movies</p>
+    <div className="min-h-screen bg-bg-canvas flex items-center justify-center safe-area-top safe-area-bottom">
+      <div className="w-full max-w-sm px-6">
+        {/* Header - Apple HIG: Large title */}
+        <div className="text-center mb-12">
+          <h1 className="text-large-title font-bold text-content-primary mb-3">
+            cinefluent
+          </h1>
+          <p className="text-body text-content-secondary">
+            Learn languages through movies
+          </p>
         </div>
 
         {/* Demo Credentials Notice */}
         {process.env.NODE_ENV === 'development' && (
-          <div className="bg-royalBlue-500 bg-opacity-10 border border-royalBlue-500 rounded-xl p-4 mb-6">
-            <p className="text-sm text-royalBlue-500 font-medium mb-2">Demo Credentials:</p>
-            <p className="text-xs text-secondary">
+          <div className="card-ios mb-6 p-4">
+            <p className="text-callout font-semibold text-accent-solid mb-2">
+              Demo Credentials:
+            </p>
+            <p className="text-footnote text-content-secondary">
               Email: demo@cinefluent.com<br />
               Password: demo123
             </p>
           </div>
         )}
 
-        {/* Form */}
-        <div className="bg-card rounded-xl p-6 border border-default">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-primary mb-2">
+        {/* Form Card */}
+        <div className="card-ios p-6">
+          <div className="mb-8">
+            <h2 className="text-title-1 font-bold text-content-primary mb-2">
               {isLogin ? 'Welcome back' : 'Create account'}
             </h2>
-            <p className="text-secondary">
+            <p className="text-body text-content-secondary">
               {isLogin ? 'Sign in to continue learning' : 'Start your language journey'}
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {!isLogin && (
               <div>
-                <Label htmlFor="name" className="text-primary">Full Name</Label>
-                <div className="relative mt-1">
-                  <User size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary" />
-                  <Input
-                    id="name"
+                <label className="text-callout font-medium text-content-primary block mb-2">
+                  Full Name
+                </label>
+                <div className="relative">
+                  <User size={20} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-content-secondary" />
+                  <input
                     type="text"
                     placeholder="Enter your full name"
                     value={formData.name}
                     onChange={(e) => handleInputChange('name', e.target.value)}
-                    className={`pl-10 ${getFieldError('name') ? 'border-persimmon-500' : ''}`}
+                    className={`input-ios pl-12 w-full ${getFieldError('name') ? 'border-state-error' : ''}`}
                     disabled={isLoading}
                     required
                   />
                   {getFieldError('name') && (
-                    <p className="text-persimmon-500 text-sm mt-1">{getFieldError('name')}</p>
+                    <p className="text-footnote text-state-error mt-2">{getFieldError('name')}</p>
                   )}
                 </div>
               </div>
             )}
 
             <div>
-              <Label htmlFor="email" className="text-primary">Email</Label>
-              <div className="relative mt-1">
-                <Mail size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary" />
-                <Input
-                  id="email"
+              <label className="text-callout font-medium text-content-primary block mb-2">
+                Email
+              </label>
+              <div className="relative">
+                <Mail size={20} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-content-secondary" />
+                <input
                   type="email"
                   placeholder="Enter your email"
                   value={formData.email}
                   onChange={(e) => handleInputChange('email', e.target.value)}
-                  className={`pl-10 ${getFieldError('email') ? 'border-persimmon-500' : ''}`}
+                  className={`input-ios pl-12 w-full ${getFieldError('email') ? 'border-state-error' : ''}`}
                   disabled={isLoading}
                   required
                 />
                 {getFieldError('email') && (
-                  <p className="text-persimmon-500 text-sm mt-1">{getFieldError('email')}</p>
+                  <p className="text-footnote text-state-error mt-2">{getFieldError('email')}</p>
                 )}
               </div>
             </div>
 
             <div>
-              <Label htmlFor="password" className="text-primary">Password</Label>
-              <div className="relative mt-1">
-                <Lock size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary" />
-                <Input
-                  id="password"
+              <label className="text-callout font-medium text-content-primary block mb-2">
+                Password
+              </label>
+              <div className="relative">
+                <Lock size={20} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-content-secondary" />
+                <input
                   type={showPassword ? 'text' : 'password'}
                   placeholder="Enter your password"
                   value={formData.password}
                   onChange={(e) => handleInputChange('password', e.target.value)}
-                  className={`pl-10 pr-10 ${getFieldError('password') ? 'border-persimmon-500' : ''}`}
+                  className={`input-ios pl-12 pr-12 w-full ${getFieldError('password') ? 'border-state-error' : ''}`}
                   disabled={isLoading}
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-secondary hover:text-primary"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-content-secondary hover:text-content-primary transition-colors"
                   disabled={isLoading}
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
                 {getFieldError('password') && (
-                  <p className="text-persimmon-500 text-sm mt-1">{getFieldError('password')}</p>
+                  <p className="text-footnote text-state-error mt-2">{getFieldError('password')}</p>
                 )}
               </div>
             </div>
 
             {hasGeneralError && (
-              <div className="text-persimmon-500 text-sm text-center bg-persimmon-500 bg-opacity-10 rounded-lg p-3">
-                {error.message}
+              <div className="bg-state-error bg-opacity-10 border border-state-error rounded-xl p-4">
+                <p className="text-footnote text-state-error text-center">
+                  {error.message}
+                </p>
               </div>
             )}
 
-            <Button
+            <button
               type="submit"
               disabled={isLoading}
-              className="w-full btn-primary"
+              className="btn-primary w-full"
             >
               {isLoading ? (
                 <span className="flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
                   {isLogin ? 'Signing in...' : 'Creating account...'}
                 </span>
               ) : (
                 isLogin ? 'Sign In' : 'Create Account'
               )}
-            </Button>
+            </button>
           </form>
 
-          <div className="mt-6 text-center">
+          <div className="mt-8 text-center">
             <button
               onClick={() => {
                 setIsLogin(!isLogin);
                 setFormData({ email: '', password: '', name: '' });
               }}
-              className="text-royalBlue-500 hover:text-royalBlue-600 font-medium"
+              className="text-accent-solid hover:opacity-80 font-medium text-body transition-opacity"
               disabled={isLoading}
             >
               {isLogin ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
