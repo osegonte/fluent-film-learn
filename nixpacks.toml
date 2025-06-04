@@ -1,9 +1,6 @@
 [start]
-cmd = "uvicorn main:app --host 0.0.0.0 --port $PORT --workers 1"
+cmd = "uvicorn main:app --host 0.0.0.0 --port $PORT"
 
 [variables]
 NIXPACKS_PYTHON_VERSION = "3.11"
 PYTHONUNBUFFERED = "1"
-
-[phases.install]
-cmds = ["pip install --upgrade pip setuptools wheel"]
