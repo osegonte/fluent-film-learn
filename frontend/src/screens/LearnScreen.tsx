@@ -1,6 +1,6 @@
 // src/screens/LearnScreen.tsx
 import React, { useState, useEffect } from 'react';
-import { Play, Clock, Star, AlertCircle } from 'lucide-react';
+import { Play, Clock, Star, AlertCircle, Film, Flame, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Movie } from '../types/api';
 import { apiService } from '../services/api';
@@ -56,67 +56,114 @@ const LearnScreen = () => {
     }
   };
 
-  // Apple HIG: Movie card component
-  const MovieCard = ({ movie }: { movie: Movie }) => (
-    <div className="card-ios mx-4 mb-4">
-      <div className="p-4">
+  // Enhanced Movie card component with beautiful styling
+  const MovieCard = ({ movie, index }: { movie: Movie; index: number }) => (
+    <div 
+      className="mobile-card mx-4 mb-4 animate-fade-in-up group cursor-pointer"
+      style={{ animationDelay: `${index * 0.1}s` }}
+      onClick={() => handleStartLesson(movie.id)}
+    >
+      <div className="p-6">
         <div className="flex items-start gap-4">
-          {/* Movie thumbnail */}
-          <div className="w-16 h-16 bg-accent-solid rounded-xl flex items-center justify-center text-2xl flex-shrink-0">
-            {movie.thumbnail}
+          {/* Enhanced movie thumbnail with gradient backdrop */}
+          <div className="relative flex-shrink-0">
+            <div className="w-20 h-20 rounded-2xl flex items-center justify-center text-3xl relative overflow-hidden cinematic-gradient shadow-lg">
+              <Film className="w-8 h-8 text-white/90 absolute" />
+              <span className="relative z-10 filter drop-shadow-sm">{movie.thumbnail}</span>
+              <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent" />
+            </div>
+            {/* Progress ring overlay for in-progress movies */}
+            {movie.progress > 0 && movie.progress < 100 && (
+              <div className="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-primary shadow-lg flex items-center justify-center animate-pulse-glow">
+                <Play className="w-4 h-4 text-white ml-0.5" />
+              </div>
+            )}
+            {/* Completion badge for finished movies */}
+            {movie.progress === 100 && (
+              <div className="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-success shadow-lg flex items-center justify-center">
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+              </div>
+            )}
           </div>
           
-          {/* Movie info */}
+          {/* Enhanced movie info */}
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 mb-1">
-              <h3 className="text-headline font-semibold text-content-primary truncate">
-                {movie.title}
-              </h3>
-              <div className="flex items-center gap-1 flex-shrink-0">
-                <Star size={14} className="text-spark fill-current" />
-                <span className="text-footnote font-medium text-content-secondary">
+            <div className="flex items-start justify-between mb-2">
+              <div className="flex-1 min-w-0">
+                <h3 className="text-headline font-bold text-content-primary truncate group-hover:text-primary transition-colors">
+                  {movie.title}
+                </h3>
+                <div className="flex items-center gap-3 mt-1">
+                  <span className="text-subhead text-primary font-semibold">
+                    {movie.language}
+                  </span>
+                  <span className="text-body text-content-secondary">
+                    {movie.difficulty}
+                  </span>
+                </div>
+              </div>
+              
+              {/* Rating with enhanced styling */}
+              <div className="flex items-center gap-1 bg-warning/10 px-2 py-1 rounded-lg">
+                <Star className="w-4 h-4 text-warning fill-current" />
+                <span className="text-footnote font-bold text-warning">
                   {movie.rating}
                 </span>
               </div>
             </div>
             
-            <div className="flex items-center gap-3 mb-2">
-              <span className="text-subhead text-accent-solid font-medium">
-                {movie.language}
-              </span>
-              <span className="text-subhead text-content-secondary">
-                {movie.difficulty}
-              </span>
-            </div>
-            
+            {/* Enhanced movie metadata */}
             <div className="flex items-center gap-4 text-caption text-content-secondary mb-3">
-              <div className="flex items-center gap-1">
-                <Clock size={12} />
-                <span>{movie.duration}</span>
+              <div className="flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5" />
+                <span className="font-medium">{movie.duration}</span>
               </div>
-              <span>{movie.scenes}</span>
+              <div className="flex items-center gap-1.5">
+                <Film className="w-3.5 h-3.5" />
+                <span className="font-medium">{movie.scenes}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Users className="w-3.5 h-3.5" />
+                <span className="font-medium">{movie.totalLessons} lessons</span>
+              </div>
             </div>
             
-            {/* Progress */}
-            <div className="mb-3">
-              <div className="progress-ios">
+            {/* Enhanced progress visualization */}
+            <div className="mb-4">
+              <div className="progress-enhanced">
                 <div 
-                  className="progress-fill-ios"
-                  style={{ width: `${movie.progress}%` }}
+                  className="progress-fill animate-progress-fill"
+                  style={{ 
+                    '--progress-width': `${movie.progress}%`,
+                    width: `${movie.progress}%` 
+                  }}
                 />
               </div>
-              <p className="text-caption text-content-secondary mt-1">
-                {movie.progress}% complete
-              </p>
+              <div className="flex justify-between items-center mt-2">
+                <p className="text-caption text-content-secondary font-medium">
+                  {movie.progress}% complete
+                </p>
+                <p className="text-caption text-content-secondary">
+                  {movie.completedLessons}/{movie.totalLessons} lessons
+                </p>
+              </div>
             </div>
             
-            {/* Action button */}
+            {/* Enhanced action button */}
             <button 
-              onClick={() => handleStartLesson(movie.id)}
-              className="btn-primary w-full flex items-center justify-center gap-2"
+              className="btn-primary w-full flex items-center justify-center gap-2 group-hover:scale-105 transition-transform"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleStartLesson(movie.id);
+              }}
             >
-              <Play size={16} />
-              <span>{movie.progress > 0 ? 'Continue' : 'Start'}</span>
+              <Play className="w-4 h-4" />
+              <span className="font-semibold">
+                {movie.progress > 0 && movie.progress < 100 ? 'Continue Learning' : 
+                 movie.progress === 100 ? 'Review Movie' : 'Start Learning'}
+              </span>
             </button>
           </div>
         </div>
@@ -125,12 +172,14 @@ const LearnScreen = () => {
   );
 
   const ErrorState = () => (
-    <div className="flex flex-col items-center justify-center py-12 px-6">
-      <AlertCircle size={48} className="text-state-error mb-4" />
-      <h3 className="text-title-3 font-semibold text-content-primary mb-2 text-center">
+    <div className="flex flex-col items-center justify-center py-16 px-6 animate-fade-in-up">
+      <div className="w-16 h-16 rounded-full bg-state-error/10 flex items-center justify-center mb-6">
+        <AlertCircle className="w-8 h-8 text-state-error" />
+      </div>
+      <h3 className="text-title-3 font-bold text-content-primary mb-3 text-center">
         Something went wrong
       </h3>
-      <p className="text-body text-content-secondary text-center mb-6 max-w-sm">
+      <p className="text-body text-content-secondary text-center mb-8 max-w-sm leading-relaxed">
         {error}
       </p>
       <button 
@@ -145,43 +194,80 @@ const LearnScreen = () => {
   const LoadingSkeleton = () => (
     <div className="space-y-4 px-4">
       {[...Array(5)].map((_, index) => (
-        <MovieCardSkeleton key={index} />
+        <div key={index} className={`animate-fade-in-up stagger-${index + 1}`}>
+          <MovieCardSkeleton />
+        </div>
       ))}
+    </div>
+  );
+
+  // Enhanced streak display
+  const StreakDisplay = () => (
+    <div className="mx-4 mb-6">
+      <div className="card-ios p-4 bg-gradient-to-r from-warning/5 to-state-success/5 border-warning/20">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-full bg-warning/20 flex items-center justify-center animate-pulse-glow">
+              <Flame className="w-6 h-6 text-warning" />
+            </div>
+            <div>
+              <h3 className="text-headline font-bold text-content-primary">12 Day Streak</h3>
+              <p className="text-footnote text-content-secondary">Keep it up! You're on fire! 🚀</p>
+            </div>
+          </div>
+          <div className="text-right">
+            <div className="text-title-2 font-bold text-warning tabular-nums">12</div>
+            <div className="text-caption text-content-secondary">days</div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 
   return (
     <div className="flex flex-col min-h-full bg-bg-canvas">
-      {/* Header - Apple HIG: Large title */}
-      <div className="px-6 py-8 text-center">
-        <h1 className="text-large-title font-bold text-content-primary mb-2">
-          Learn with Movies
-        </h1>
-        <p className="text-body text-content-secondary">
-          Master languages through your favorite films
-        </p>
+      {/* Enhanced header with gradient background */}
+      <div className="relative px-6 py-12 text-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-success/5" />
+        <div className="relative z-10">
+          <h1 className="text-large-title font-black text-content-primary mb-3 animate-fade-in-up">
+            Learn with Movies
+          </h1>
+          <p className="text-body text-content-secondary leading-relaxed animate-fade-in-up stagger-1">
+            Master languages through your favorite films
+          </p>
+        </div>
+        {/* Decorative gradient orbs */}
+        <div className="absolute -top-4 -right-4 w-24 h-24 rounded-full bg-gradient-to-br from-primary/20 to-success/20 blur-xl" />
+        <div className="absolute -bottom-4 -left-4 w-16 h-16 rounded-full bg-gradient-to-br from-warning/20 to-primary/20 blur-xl" />
       </div>
 
-      {/* Language Filter - Apple HIG: Segmented control style */}
-      <div className="px-4 mb-6">
-        <div className="bg-card rounded-xl p-1 flex overflow-x-auto">
-          {languages.map((lang) => (
-            <button
-              key={lang}
-              onClick={() => setSelectedLanguage(lang)}
-              className={`px-4 py-2 rounded-lg text-subhead font-medium whitespace-nowrap transition-all duration-200 min-w-[60px] ${
-                selectedLanguage === lang 
-                  ? 'bg-accent-solid text-white shadow-sm' 
-                  : 'text-content-secondary hover:text-content-primary'
-              }`}
-            >
-              {lang}
-            </button>
-          ))}
+      {/* Streak display */}
+      {!isLoading && !error && <StreakDisplay />}
+
+      {/* Enhanced language filter with better visual hierarchy */}
+      <div className="px-4 mb-8 animate-fade-in-up stagger-2">
+        <div className="card-ios p-2 bg-card/80 backdrop-blur-sm">
+          <div className="flex gap-1 overflow-x-auto scrollbar-hide">
+            {languages.map((lang, index) => (
+              <button
+                key={lang}
+                onClick={() => setSelectedLanguage(lang)}
+                className={`px-4 py-3 rounded-xl text-callout font-semibold whitespace-nowrap transition-all duration-300 min-w-[80px] ${
+                  selectedLanguage === lang 
+                    ? 'bg-primary text-white shadow-lg scale-105 animate-bounce-subtle' 
+                    : 'text-content-secondary hover:text-content-primary hover:bg-primary/5'
+                }`}
+                style={{ animationDelay: `${index * 0.05}s` }}
+              >
+                {lang}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Content */}
+      {/* Enhanced content area */}
       <div className="flex-1">
         {/* Error State */}
         {error && !isLoading && <ErrorState />}
@@ -189,47 +275,81 @@ const LearnScreen = () => {
         {/* Loading State */}
         {isLoading && (
           <div className="space-y-6">
-            <div className="px-6">
-              <h2 className="text-title-2 font-semibold text-content-primary mb-4">
-                Loading...
-              </h2>
+            <div className="px-6 animate-fade-in-up">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="skeleton w-8 h-8 rounded-full" />
+                <div className="skeleton w-32 h-6" />
+              </div>
             </div>
             <LoadingSkeleton />
           </div>
         )}
 
-        {/* Content */}
+        {/* Enhanced Content */}
         {!isLoading && !error && (
           <>
-            {/* Continue Learning */}
+            {/* Continue Learning Section */}
             {continueMovies.length > 0 && (
-              <div className="mb-8">
-                <h2 className="text-title-2 font-semibold text-content-primary mb-4 px-6">
-                  Continue Learning
-                </h2>
+              <div className="mb-10">
+                <div className="px-6 mb-6 animate-fade-in-up">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+                      <Play className="w-4 h-4 text-primary" />
+                    </div>
+                    <h2 className="text-title-2 font-bold text-content-primary">
+                      Continue Learning
+                    </h2>
+                  </div>
+                  <p className="text-body text-content-secondary">
+                    Pick up where you left off
+                  </p>
+                </div>
                 <div>
-                  {continueMovies.map((movie) => (
-                    <MovieCard key={movie.id} movie={movie} />
+                  {continueMovies.map((movie, index) => (
+                    <MovieCard key={movie.id} movie={movie} index={index} />
                   ))}
                 </div>
               </div>
             )}
 
-            {/* Explore Movies */}
-            <div className="pb-8">
-              <h2 className="text-title-2 font-semibold text-content-primary mb-4 px-6">
-                {continueMovies.length > 0 ? 'Explore Movies' : 'Start Learning'}
-              </h2>
+            {/* Explore Movies Section */}
+            <div className="pb-10">
+              <div className="px-6 mb-6 animate-fade-in-up">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-8 h-8 rounded-full bg-success/20 flex items-center justify-center">
+                    <Film className="w-4 h-4 text-success" />
+                  </div>
+                  <h2 className="text-title-2 font-bold text-content-primary">
+                    {continueMovies.length > 0 ? 'Explore Movies' : 'Start Learning'}
+                  </h2>
+                </div>
+                <p className="text-body text-content-secondary">
+                  {continueMovies.length > 0 
+                    ? 'Discover new stories and languages' 
+                    : 'Begin your language learning journey'}
+                </p>
+              </div>
+              
               {exploreMovies.length > 0 ? (
                 <div>
-                  {exploreMovies.map((movie) => (
-                    <MovieCard key={movie.id} movie={movie} />
+                  {exploreMovies.map((movie, index) => (
+                    <MovieCard 
+                      key={movie.id} 
+                      movie={movie} 
+                      index={index + continueMovies.length} 
+                    />
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-8 px-6">
-                  <p className="text-body text-content-secondary mb-4">
-                    No movies found for {selectedLanguage}.
+                <div className="text-center py-12 px-6 animate-fade-in-up">
+                  <div className="w-20 h-20 rounded-full bg-muted/30 flex items-center justify-center mx-auto mb-6">
+                    <Film className="w-10 h-10 text-muted-foreground" />
+                  </div>
+                  <h3 className="text-title-3 font-bold text-content-primary mb-3">
+                    No movies found
+                  </h3>
+                  <p className="text-body text-content-secondary mb-6 max-w-sm mx-auto leading-relaxed">
+                    No movies available for {selectedLanguage}. Try selecting a different language.
                   </p>
                   <button 
                     onClick={() => setSelectedLanguage('All')} 
