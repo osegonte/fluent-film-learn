@@ -4,18 +4,6 @@
 
 @layer base {
   :root {
-    /* Enhanced Apple HIG: System colors for iOS */
-    --bg-canvas: #F2F2F7;
-    --bg-card: #FFFFFF;
-    --content-primary: #000000;
-    --content-secondary: #3C3C43;
-    --border-color: #C6C6C8;
-    --accent-solid: #3D7BFF;
-    --state-success: #34C759;
-    --state-error: #FF3B30;
-    --spark: #FF9500;
-
-    /* Enhanced shadcn compatibility with better contrast */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -36,27 +24,11 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 221 83% 53%;
     --radius: 12px;
-
-    /* Enhanced brand colors for movie/learning theme */
     --success: 142 76% 45%;
     --warning: 48 100% 63%;
-    --surface-alt: 210 16% 93%;
-    --cinematic-gradient: linear-gradient(135deg, #3D7BFF 0%, #8B5CF6 50%, #EC4899 100%);
-    --movie-magic: linear-gradient(45deg, #FFD700 0%, #FF6B6B 50%, #4ECDC4 100%);
   }
 
   html.dark {
-    /* Enhanced Apple HIG: Dark mode system colors */
-    --bg-canvas: #000000;
-    --bg-card: #1C1C1E;
-    --content-primary: #FFFFFF;
-    --content-secondary: #EBEBF5;
-    --border-color: #38383A;
-    --accent-solid: #0A84FF;
-    --state-success: #30D158;
-    --state-error: #FF453A;
-    --spark: #FF9F0A;
-
     --background: 240 6% 5.5%;
     --foreground: 0 0% 96%;
     --card: 240 4% 10%;
@@ -76,10 +48,8 @@
     --border: 240 4% 18%;
     --input: 240 4% 18%;
     --ring: 221 83% 53%;
-
     --success: 142 70% 49%;
     --warning: 48 100% 70%;
-    --surface-alt: 240 2% 14%;
   }
 }
 
@@ -95,10 +65,8 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition: background-color 0.3s ease, color 0.3s ease;
-    font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "zero" 1;
   }
 
-  /* Enhanced font weights for better readability */
   h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -114,177 +82,19 @@
 }
 
 @layer components {
-  /* Enhanced mobile-first card styling with movie theme */
   .mobile-card {
     @apply rounded-xl bg-card backdrop-blur-sm border border-border/50 shadow-lg;
-    box-shadow: 
-      0 4px 6px -1px rgba(0, 0, 0, 0.1), 
-      0 2px 4px -1px rgba(0, 0, 0, 0.06),
-      0 0 0 1px rgba(61, 123, 255, 0.05);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .mobile-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(61, 123, 255, 0.3), transparent);
-    opacity: 0;
-    transition: opacity 0.3s ease;
   }
   
   .mobile-card:hover {
     @apply shadow-xl scale-[1.02];
-    box-shadow: 
-      0 20px 25px -5px rgba(0, 0, 0, 0.1), 
-      0 10px 10px -5px rgba(0, 0, 0, 0.04),
-      0 0 0 1px rgba(61, 123, 255, 0.2);
     transform: translateY(-2px) scale(1.02);
   }
 
-  .mobile-card:hover::before {
-    opacity: 1;
-  }
-
-  /* Apple HIG inspired card styling */
-  .card-ios {
-    @apply rounded-xl bg-card border border-border/30 shadow-sm;
-    box-shadow: 
-      0 1px 3px rgba(0, 0, 0, 0.1),
-      0 1px 2px rgba(0, 0, 0, 0.06);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .card-ios:hover {
-    box-shadow: 
-      0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    transform: translateY(-1px);
-  }
-
-  /* Enhanced progress bars with movie theme */
-  .progress-enhanced {
-    @apply h-3 bg-muted rounded-full overflow-hidden relative;
-    transition: all 0.3s ease;
-  }
-  
-  .progress-enhanced::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
-    animation: shimmer 2s ease-in-out infinite;
-  }
-  
-  .progress-enhanced .progress-fill {
-    @apply h-full rounded-full transition-all duration-700 ease-out min-w-[8px];
-    background: var(--cinematic-gradient);
-    position: relative;
-    z-index: 1;
-  }
-
-  .progress-ios {
-    @apply h-2 bg-muted rounded-full overflow-hidden;
-    background: rgba(120, 120, 128, 0.16);
-  }
-
-  .progress-fill-ios {
-    @apply h-full rounded-full transition-all duration-500 ease-out;
-    background: var(--accent-solid);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  }
-
-  /* Enhanced typography hierarchy with better contrast */
-  .text-large-title {
-    @apply text-4xl font-black tracking-tight text-foreground;
-    font-weight: 800;
-    line-height: 1.1;
-  }
-
-  .text-title-1 {
-    @apply text-3xl font-bold tracking-tight text-foreground;
-    font-weight: 700;
-    line-height: 1.2;
-  }
-
-  .text-title-2 {
-    @apply text-2xl font-bold tracking-tight text-foreground;
-    font-weight: 700;
-    line-height: 1.25;
-  }
-
-  .text-title-3 {
-    @apply text-xl font-bold tracking-tight text-foreground;
-    font-weight: 700;
-    line-height: 1.3;
-  }
-
-  .text-headline {
-    @apply text-lg font-bold text-foreground;
-    font-weight: 700;
-    line-height: 1.35;
-  }
-  
-  .text-subhead {
-    @apply text-base font-semibold text-foreground;
-    font-weight: 600;
-    line-height: 1.4;
-  }
-  
-  .text-body {
-    @apply text-sm text-muted-foreground leading-relaxed;
-    font-weight: 500;
-    line-height: 1.5;
-  }
-
-  .text-callout {
-    @apply text-sm font-semibold text-foreground;
-    font-weight: 600;
-    line-height: 1.4;
-  }
-  
-  .text-footnote {
-    @apply text-xs text-muted-foreground;
-    font-weight: 500;
-    line-height: 1.3;
-  }
-
-  .text-caption {
-    @apply text-xs text-muted-foreground font-medium;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-  }
-
-  /* Enhanced button improvements with movie theme */
   .btn-mobile {
     @apply min-h-[44px] px-6 py-3 rounded-xl font-semibold transition-all duration-300;
     font-weight: 600;
-    transform: translateZ(0);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .btn-mobile::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s ease;
-  }
-
-  .btn-mobile:hover::before {
-    left: 100%;
   }
   
   .btn-mobile:active {
@@ -293,177 +103,49 @@
 
   .btn-mobile:hover {
     transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   }
 
   .btn-primary {
     @apply btn-mobile bg-primary text-primary-foreground shadow-lg;
-    background: var(--cinematic-gradient);
-    box-shadow: 
-      0 4px 14px 0 rgba(61, 123, 255, 0.25),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  }
-
-  .btn-primary:hover {
-    box-shadow: 
-      0 8px 25px 0 rgba(61, 123, 255, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
 
   .btn-secondary {
     @apply btn-mobile bg-secondary text-secondary-foreground border border-border;
   }
 
-  .btn-secondary:hover {
-    @apply bg-secondary/80;
+  .progress-enhanced {
+    @apply h-3 bg-muted rounded-full overflow-hidden relative;
+    transition: all 0.3s ease;
+  }
+  
+  .progress-enhanced .progress-fill {
+    @apply h-full rounded-full transition-all duration-700 ease-out min-w-[8px];
+    background: linear-gradient(90deg, #1580FF 0%, #8C2BFF 50%, #D11AFF 100%);
   }
 
-  /* Input styling with better focus states */
-  .input-ios {
-    @apply px-4 py-3 bg-card border border-border rounded-xl text-foreground placeholder:text-muted-foreground transition-all duration-200;
-    font-weight: 500;
-  }
-
-  .input-ios:focus {
-    @apply outline-none ring-2 ring-primary ring-offset-2 border-primary;
-  }
-
-  /* Enhanced gradient backgrounds */
-  .gradient-bg-light {
-    background: linear-gradient(135deg, 
-      hsl(var(--background)) 0%, 
-      hsl(221 83% 98%) 50%, 
-      hsl(var(--background)) 100%);
-  }
-
-  .gradient-bg-dark {
-    background: linear-gradient(135deg, 
-      hsl(var(--background)) 0%, 
-      hsl(240 6% 8%) 50%, 
-      hsl(var(--background)) 100%);
-  }
-
-  .cinematic-gradient {
-    background: var(--cinematic-gradient);
-  }
-
-  .movie-magic-gradient {
-    background: var(--movie-magic);
-  }
-
-  /* Enhanced focus states */
   .focus-ring {
-    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;
-  }
-
-  /* Tabular numbers for metrics */
-  .tabular-nums {
-    font-variant-numeric: tabular-nums;
-    font-feature-settings: "tnum" 1;
-  }
-
-  /* Enhanced brand utilities */
-  .text-success {
-    color: hsl(var(--success));
-  }
-  
-  .text-warning {
-    color: hsl(var(--warning));
-  }
-  
-  .bg-success {
-    background-color: hsl(var(--success));
-  }
-  
-  .bg-warning {
-    background-color: hsl(var(--warning));
-  }
-  
-  .bg-surface-alt {
-    background-color: hsl(var(--surface-alt));
-  }
-
-  /* Movie-themed accents */
-  .text-accent-solid {
-    color: var(--accent-solid);
-  }
-
-  .bg-accent-solid {
-    background-color: var(--accent-solid);
-  }
-
-  .text-spark {
-    color: var(--spark);
-  }
-
-  .text-state-success {
-    color: var(--state-success);
-  }
-
-  .text-state-error {
-    color: var(--state-error);
-  }
-
-  .bg-state-success {
-    background-color: var(--state-success);
-  }
-
-  .bg-state-error {
-    background-color: var(--state-error);
-  }
-
-  /* Apple-style content colors */
-  .text-content-primary {
-    color: var(--content-primary);
-  }
-
-  .text-content-secondary {
-    color: var(--content-secondary);
-  }
-
-  .bg-bg-canvas {
-    background-color: var(--bg-canvas);
-  }
-
-  .bg-bg-card {
-    background-color: var(--bg-card);
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
   }
 }
 
 @layer utilities {
-  /* Enhanced animations for movie theme */
-  @keyframes bounce-subtle {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out;
   }
 
-  @keyframes pulse-glow {
-    0%, 100% { 
-      box-shadow: 0 0 0 0 rgba(61, 123, 255, 0.4);
-    }
-    50% { 
-      box-shadow: 0 0 0 8px rgba(61, 123, 255, 0);
-    }
+  .animate-scale-in {
+    animation: scale-in 0.4s ease-out;
   }
 
-  @keyframes shimmer {
-    0% { 
-      background-position: -200px 0; 
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.8;
-    }
-    100% { 
-      background-position: calc(200px + 100%) 0; 
-      opacity: 1;
-    }
+  .animate-bounce-subtle {
+    animation: bounce-subtle 0.6s ease-in-out;
   }
 
-  @keyframes movie-roll {
-    0% { transform: translateX(-100%) rotate(0deg); }
-    100% { transform: translateX(100vw) rotate(360deg); }
-  }
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
 
   @keyframes fade-in-up {
     0% {
@@ -487,661 +169,24 @@
     }
   }
 
-  @keyframes progress-fill {
-    0% { width: 0; }
-    100% { width: var(--progress-width, 0%); }
-  }
-
-  .animate-bounce-subtle {
-    animation: bounce-subtle 0.6s ease-in-out;
-  }
-
-  .animate-pulse-glow {
-    animation: pulse-glow 2s infinite;
-  }
-
-  .animate-fade-in-up {
-    animation: fade-in-up 0.6s ease-out;
-  }
-
-  .animate-scale-in {
-    animation: scale-in 0.4s ease-out;
-  }
-
-  .animate-progress-fill {
-    animation: progress-fill 1s ease-out forwards;
-  }
-
-  /* Stagger animation utilities */
-  .stagger-1 { animation-delay: 0.1s; }
-  .stagger-2 { animation-delay: 0.2s; }
-  .stagger-3 { animation-delay: 0.3s; }
-  .stagger-4 { animation-delay: 0.4s; }
-  .stagger-5 { animation-delay: 0.5s; }
-
-  /* Loading skeleton */
-  .skeleton {
-    background: linear-gradient(
-      90deg, 
-      hsl(var(--muted)) 25%, 
-      hsl(var(--muted) / 0.5) 50%, 
-      hsl(var(--muted)) 75%
-    );
-    background-size: 200px 100%;
-    animation: shimmer 2s infinite ease-in-out;
-    border-radius: 0.5rem;
-  }
-
-  /* Safe area utilities for iOS */
-  .safe-area-top {
-    padding-top: env(safe-area-inset-top);
-  }
-
-  .safe-area-bottom {
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-
-  .safe-area-left {
-    padding-left: env(safe-area-inset-left);
-  }
-
-  .safe-area-right {
-    padding-right: env(safe-area-inset-right);
+  @keyframes bounce-subtle {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
   }
 }
 
-/* Enhanced theme transitions */
+/* Theme transitions */
 * {
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
   transition-duration: 0.3s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Optimized for movie-watching experience */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* Enhanced dark mode specifics */
-.dark .mobile-card {
-  box-shadow: 
-    0 4px 6px -1px rgba(0, 0, 0, 0.3), 
-    0 2px 4px -1px rgba(0, 0, 0, 0.2),
-    0 0 0 1px rgba(61, 123, 255, 0.1);
-}
-
-.dark .mobile-card:hover {
-  box-shadow: 
-    0 20px 25px -5px rgba(0, 0, 0, 0.4), 
-    0 10px 10px -5px rgba(0, 0, 0, 0.2),
-    0 0 0 1px rgba(61, 123, 255, 0.3);
-}
-
-/* Better scroll behavior */
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  overflow-x: hidden;
-}
-/* ============================================
-   ANDROID SHAPE & SIZING FIXES
-   Preserves iPhone appearance, fixes Android
-============================================ */
-
-/* Android-specific shape normalization */
-@supports (-webkit-appearance: none) {
-  /* Only apply to Android Chrome/WebKit browsers */
-  @media (pointer: coarse) and (max-width: 768px) {
-    
-    /* Fix card shape consistency on Android */
-    .mobile-card {
-      border-radius: 16px !important; /* Force consistent radius */
-      box-sizing: border-box;
-      -webkit-box-sizing: border-box;
-      min-height: auto;
-      width: 100%;
-      max-width: 100%;
-    }
-    
-    /* Fix button shape normalization */
-    .btn-mobile, .btn-primary, .btn-secondary, button {
-      border-radius: 12px !important;
-      box-sizing: border-box;
-      -webkit-box-sizing: border-box;
-      height: auto;
-      min-height: 48px; /* Android touch target */
-      padding: 12px 24px;
-      line-height: 1.4;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    /* Fix navigation button shapes */
-    .NavigationTabs button, nav button {
-      border-radius: 16px !important;
-      min-width: 60px;
-      min-height: 60px;
-      padding: 8px;
-      box-sizing: border-box;
-    }
-    
-    /* Fix input field shapes */
-    .input-ios, input, textarea {
-      border-radius: 12px !important;
-      box-sizing: border-box;
-      height: auto;
-      min-height: 48px;
-      padding: 12px 16px;
-      font-size: 16px; /* Prevent zoom */
-      line-height: 1.5;
-      width: 100%;
-    }
-    
-    /* Fix avatar and icon shapes */
-    .w-10.h-10, .w-12.h-12, .w-16.h-16, .w-20.h-20 {
-      border-radius: 50% !important;
-      flex-shrink: 0;
-      aspect-ratio: 1;
-    }
-    
-    /* Fix rectangular elements */
-    .rounded-xl, .rounded-2xl {
-      border-radius: 16px !important;
-    }
-    
-    .rounded-lg {
-      border-radius: 12px !important;
-    }
-    
-    .rounded-md {
-      border-radius: 8px !important;
-    }
-    
-    /* Fix progress bar shapes */
-    .progress-enhanced, .progress-ios {
-      border-radius: 8px !important;
-      height: 8px;
-      overflow: hidden;
-    }
-    
-    .progress-fill, .progress-fill-ios {
-      border-radius: 8px !important;
-      height: 100%;
-    }
-    
-    /* Fix grid item sizing */
-    .grid-cols-2 > * {
-      width: 100%;
-      box-sizing: border-box;
-    }
-    
-    /* Fix flex item proportions */
-    .flex-1 {
-      flex: 1 1 0%;
-      min-width: 0;
-    }
-    
-    /* Fix aspect ratios for Android */
-    .aspect-video {
-      aspect-ratio: 16 / 9;
-      width: 100%;
-      height: auto;
-    }
-    
-    .aspect-square {
-      aspect-ratio: 1 / 1;
-      width: 100%;
-      height: auto;
-    }
-    
-    /* Fix container widths */
-    .w-full {
-      width: 100% !important;
-      box-sizing: border-box;
-    }
-    
-    .max-w-sm {
-      max-width: 100%;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    
-    /* Fix Android text container shapes */
-    .text-center {
-      text-align: center;
-      width: 100%;
-    }
-    
-    /* Fix specific component shapes */
-    .card-ios {
-      border-radius: 16px !important;
-      box-sizing: border-box;
-    }
-    
-    /* Fix achievement and stat cards */
-    .achievement-card, .stats-card {
-      border-radius: 16px !important;
-      box-sizing: border-box;
-      width: 100%;
-    }
-    
-    /* Fix movie poster thumbnails */
-    .movie-thumbnail {
-      border-radius: 12px !important;
-      aspect-ratio: 1;
-      overflow: hidden;
-    }
-    
-    /* Fix spacing inconsistencies */
-    .p-4 {
-      padding: 16px !important;
-    }
-    
-    .p-5 {
-      padding: 20px !important;
-    }
-    
-    .p-6 {
-      padding: 24px !important;
-    }
-    
-    .gap-3 {
-      gap: 12px !important;
-    }
-    
-    .gap-4 {
-      gap: 16px !important;
-    }
-    
-    /* Fix margin inconsistencies */
-    .mb-3 {
-      margin-bottom: 12px !important;
-    }
-    
-    .mb-4 {
-      margin-bottom: 16px !important;
-    }
-    
-    .mb-6 {
-      margin-bottom: 24px !important;
-    }
-  }
-}
-
-/* Additional Android Chrome specific fixes */
-@media screen and (-webkit-min-device-pixel-ratio: 0) and (pointer: coarse) {
-  /* Force consistent box model */
-  * {
-    box-sizing: border-box !important;
-    -webkit-box-sizing: border-box !important;
-  }
-  
-  /* Fix Android Chrome rendering quirks */
-  .mobile-card, .btn-mobile, .input-ios {
-    transform: translateZ(0); /* Force GPU acceleration */
-    -webkit-transform: translateZ(0);
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-  }
-  
-  /* Fix Android font metrics affecting shapes */
-  body, html {
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-  }
-  
-  /* Normalize Android default margins/padding */
-  body {
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  
-  /* Fix Android viewport units */
-  .min-h-screen {
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-  }
-  
-  html {
-    height: -webkit-fill-available;
-  }
-}
-
-/* Android-specific media queries for exact shape control */
-@media (max-width: 768px) and (pointer: coarse) {
-  /* Override any conflicting styles specifically for Android touch devices */
-  
-  /* Ensure all rounded elements have consistent radius */
-  [class*="rounded"] {
-    border-radius: var(--radius, 12px) !important;
-  }
-  
-  /* Ensure all flex containers behave consistently */
-  .flex {
-    display: flex !important;
-  }
-  
-  .flex-col {
-    flex-direction: column !important;
-  }
-  
-  /* Ensure grid layouts work properly */
-  .grid {
-    display: grid !important;
-  }
-  
-  .grid-cols-2 {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-  
-  /* Fix any width calculation issues */
-  .w-1\/2 {
-    width: 50% !important;
-  }
-  
-  .w-1\/3 {
-    width: 33.333333% !important;
-  }
-  
-  .w-2\/3 {
-    width: 66.666667% !important;
-  }
-  
-  .w-1\/4 {
-    width: 25% !important;
-  }
-  
-  .w-3\/4 {
-    width: 75% !important;
-  }
-}
-
-/* iPhone preservation - ensure iOS devices keep original styling */
-@supports (-webkit-touch-callout: none) {
-  /* iOS-specific styles that should NOT be overridden */
-  @media (max-width: 768px) and (pointer: fine) {
-    /* This ensures iPhone keeps its original appearance */
-    .mobile-card {
-      /* Preserve original iPhone styling */
-    }
-  }
-}
-
-
-/* ============================================
-
-/* Android Visual Quality Fixes - Build Compatible */
-
-/* High-quality rendering for Android */
-@media (pointer: coarse) and (max-width: 768px) {
-  
-  /* GPU acceleration for smoother rendering */
-  .mobile-card {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    border-radius: 16px;
-    overflow: hidden;
-  }
-  
-  /* Perfect circles for Android */
-  .w-8.h-8,
-  .w-10.h-10, 
-  .w-12.h-12,
-  .w-14.h-14,
-  .w-16.h-16 {
-    border-radius: 50%;
-    aspect-ratio: 1;
-    flex-shrink: 0;
-  }
-  
-  /* Enhanced buttons */
-  .btn-mobile,
-  .btn-primary, 
-  .btn-secondary {
-    border-radius: 12px;
-    transform: translateZ(0);
-    backface-visibility: hidden;
-  }
-  
-  /* Clean progress bars */
-  .progress-enhanced {
-    border-radius: 8px;
-    height: 8px;
-    overflow: hidden;
-  }
-  
-  .progress-fill {
-    border-radius: 8px;
-    height: 100%;
-  }
-  
-  /* Navigation improvements */
-  .NavigationTabs button {
-    border-radius: 16px;
-    min-height: 60px;
-    min-width: 60px;
-  }
-  
-  /* Input improvements */
-  input, textarea {
-    border-radius: 12px;
-    font-size: 16px; /* Prevent zoom */
-  }
-  
-  /* Heatmap perfect circles */
-  .grid.gap-1 > div,
-  .grid.gap-2 > div {
-    border-radius: 8px;
-    aspect-ratio: 1;
-  }
-  
-  /* Remove tap highlights */
-  * {
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-  }
-  
-  /* Enhanced font rendering */
-  body {
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
-  
-  /* Fix viewport on Android */
-  .min-h-screen {
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-  }
-  
-  /* Better shadows for Android */
-  .mobile-card {
-    box-shadow: 
-      0 4px 6px rgba(0, 0, 0, 0.1),
-      0 2px 4px rgba(0, 0, 0, 0.06);
-  }
-}
-
-/* Android Chrome specific */
-@supports (-webkit-appearance: none) {
-  html {
-    height: -webkit-fill-available;
-  }
-  
-  input, textarea, button {
-    -webkit-appearance: none;
-    appearance: none;
-  }
-}
-
-
-/* iOS-optimized styles */
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* iOS safe area handling */
-.safe-area-inset-top {
-  padding-top: env(safe-area-inset-top);
-}
-
-.safe-area-inset-bottom {
+/* Safe area utilities for mobile */
+.safe-area-bottom {
   padding-bottom: env(safe-area-inset-bottom);
 }
-@import './ios-improvements.css';
 
-/* ===========================================
-   DIRECT IMPLEMENTATION OF REQUESTED CHANGES
-   =========================================== */
-
-/* 1. SQUARISH-ROUND MOVIE ICONS (not circles) */
-.rounded-full[class*="w-16"],
-.rounded-full[class*="w-20"],
-.rounded-full[class*="w-24"],
-.w-16.h-16.rounded-full,
-.w-20.h-20.rounded-full,
-.w-24.h-24.rounded-full,
-.aspect-square.rounded-full {
-  border-radius: 20px !important;
-  -webkit-border-radius: 20px !important;
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
 }
-
-/* Larger movie icons */
-.w-28.h-28.rounded-full,
-.w-32.h-32.rounded-full {
-  border-radius: 24px !important;
-  -webkit-border-radius: 24px !important;
-}
-
-/* Keep profile avatars and small icons circular */
-.w-8.h-8.rounded-full,
-.w-10.h-10.rounded-full,
-.w-12.h-12.rounded-full {
-  border-radius: 50% !important;
-}
-
-/* 2. BOLDER FONTS IN LESSON SECTIONS */
-/* Lesson titles */
-h1, h2, h3 {
-  font-weight: 700 !important;
-  letter-spacing: -0.01em !important;
-}
-
-/* Movie/course titles */
-.text-xl,
-.text-lg {
-  font-weight: 700 !important;
-}
-
-/* Progress and stats text */
-.text-sm {
-  font-weight: 600 !important;
-}
-
-/* Button text */
-button {
-  font-weight: 700 !important;
-  letter-spacing: 0.025em !important;
-}
-
-/* Specific lesson content */
-[class*="lesson"] h1,
-[class*="lesson"] h2,
-[class*="lesson"] h3 {
-  font-weight: 800 !important;
-}
-
-/* 3. DARK THEME SETUP */
-.dark {
-  background-color: #111827 !important;
-  color: #f9fafb !important;
-}
-
-.dark .bg-white {
-  background-color: #1f2937 !important;
-}
-
-.dark .bg-gray-50 {
-  background-color: #111827 !important;
-}
-
-.dark .text-gray-900 {
-  color: #f9fafb !important;
-}
-
-.dark .text-gray-600 {
-  color: #9ca3af !important;
-}
-
-.dark .text-gray-500 {
-  color: #6b7280 !important;
-}
-
-.dark .border-gray-200 {
-  border-color: #374151 !important;
-}
-
-/* Dark theme transitions */
-* {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease !important;
-}
-
-/* Settings toggle switch */
-.theme-switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-.theme-switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.theme-slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 34px;
-}
-
-.theme-slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-input:checked + .theme-slider {
-  background-color: #1580FF;
-}
-
-input:checked + .theme-slider:before {
-  transform: translateX(26px);
-}
-
-.dark .theme-slider {
-  background-color: #444;
-}
-
-/* FORCE ICON AND FONT FIXES */
-@import './force-icon-fixes.css';

@@ -26,4 +26,6 @@ function applyTheme(theme) {
 }
 
 // Initialize theme on page load
-document.addEventListener('DOMContentLoaded', initTheme);
+if (typeof document !== 'undefined') {
+  document.addEventListener('DOMContentLoaded', initTheme);
+}
