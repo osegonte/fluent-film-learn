@@ -16,7 +16,7 @@
     }
   ],
   "env": {
-    "VITE_API_URL": "https://your-backend-url.railway.app",
+    "VITE_API_URL": "https://cinefluent-backend.onrender.com",
     "VITE_USE_MOCK_DATA": "false"
   }
 }
