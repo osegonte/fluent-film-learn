@@ -1,0 +1,364 @@
+/* ===================================
+   iOS SPECIFIC IMPROVEMENTS
+   ================================== */
+
+/* Squarish-round movie icons (rounded rectangles instead of circles) */
+.movie-icon,
+.course-icon,
+.movie-thumbnail,
+.course-thumbnail,
+[data-movie-icon],
+.w-16.h-16,
+.w-20.h-20,
+.aspect-square {
+  border-radius: 20px !important;
+  -webkit-border-radius: 20px !important;
+  /* Remove circle enforcing */
+  aspect-ratio: 1 / 1 !important;
+  overflow: hidden !important;
+}
+
+/* Larger movie icons get more rounded */
+.w-24.h-24,
+.w-28.h-28,
+.w-32.h-32 {
+  border-radius: 24px !important;
+  -webkit-border-radius: 24px !important;
+}
+
+/* Course card containers */
+.course-card .movie-icon,
+.course-card .course-icon {
+  border-radius: 16px !important;
+  -webkit-border-radius: 16px !important;
+}
+
+/* Continue Learning section icons */
+.continue-learning .movie-icon,
+.continue-learning .course-icon {
+  border-radius: 18px !important;
+  -webkit-border-radius: 18px !important;
+}
+
+/* Bolder fonts in lesson sections */
+.lesson-title,
+.lesson-section h1,
+.lesson-section h2,
+.lesson-section h3,
+.lesson-card h3,
+.lesson-item h3,
+.lesson-name,
+.lesson-header,
+[data-lesson-title] {
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.lesson-subtitle,
+.lesson-description,
+.lesson-content p,
+.lesson-card p,
+.lesson-item p {
+  font-weight: 600 !important;
+}
+
+/* Lesson metadata (duration, scenes, etc.) */
+.lesson-meta,
+.lesson-stats,
+.lesson-info,
+.duration-text,
+.scenes-text {
+  font-weight: 600 !important;
+}
+
+/* Progress text in lessons */
+.lesson-progress-text,
+.lessons-completed-text,
+.progress-indicator {
+  font-weight: 700 !important;
+}
+
+/* Lesson buttons */
+.lesson-button,
+.continue-learning-button,
+.start-learning-button {
+  font-weight: 700 !important;
+  letter-spacing: 0.025em !important;
+}
+
+/* Movie/course titles in lesson context */
+.movie-title-in-lesson,
+.course-title-lesson {
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Dark theme variables - no automatic switching */
+:root {
+  --theme-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark theme styles - only applied when .dark class is present */
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 84% 4.9%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 212.7 26.8% 83.9%;
+}
+
+.dark body {
+  background-color: hsl(var(--background)) !important;
+  color: hsl(var(--foreground)) !important;
+  transition: var(--theme-transition);
+}
+
+.dark .bg-white,
+.dark .bg-gray-50,
+.dark .bg-slate-50 {
+  background-color: hsl(var(--card)) !important;
+  color: hsl(var(--card-foreground)) !important;
+}
+
+.dark .text-gray-900,
+.dark .text-black {
+  color: hsl(var(--foreground)) !important;
+}
+
+.dark .text-gray-600,
+.dark .text-gray-500 {
+  color: hsl(var(--muted-foreground)) !important;
+}
+
+.dark .border-gray-200,
+.dark .border-gray-300 {
+  border-color: hsl(var(--border)) !important;
+}
+
+/* Dark theme course cards */
+.dark .course-card,
+.dark .movie-card,
+.dark .lesson-card {
+  background-color: hsl(var(--card)) !important;
+  border-color: hsl(var(--border)) !important;
+}
+
+/* Dark theme navigation */
+.dark .bottom-nav,
+.dark .tab-bar {
+  background-color: hsl(var(--card)) !important;
+  border-color: hsl(var(--border)) !important;
+}
+
+/* Dark theme buttons */
+.dark button:not(.bg-accent-gradient) {
+  background-color: hsl(var(--secondary)) !important;
+  color: hsl(var(--secondary-foreground)) !important;
+  border-color: hsl(var(--border)) !important;
+}
+
+/* Keep gradients bright in dark mode */
+.dark .bg-accent-gradient,
+.dark .from-blue-500,
+.dark .from-purple-500 {
+  background: linear-gradient(135deg, #1580FF 0%, #8C2BFF 50%, #D11AFF 100%) !important;
+  color: white !important;
+}
+
+/* Settings page specific styling */
+.settings-section {
+  transition: var(--theme-transition);
+}
+
+.theme-toggle-section {
+  padding: 16px;
+  margin: 8px 0;
+  border-radius: 12px;
+  background-color: var(--card);
+  border: 1px solid var(--border);
+}
+
+.theme-toggle-label {
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.theme-toggle-description {
+  font-size: 14px;
+  color: var(--muted-foreground);
+  margin-bottom: 12px;
+}
+
+/* Custom toggle switch styling */
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.theme-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.theme-slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .theme-slider {
+  background-color: #1580FF;
+}
+
+input:checked + .theme-slider:before {
+  transform: translateX(26px);
+}
+
+/* Ensure proper contrast in dark mode */
+.dark .theme-slider {
+  background-color: #444;
+}
+
+.dark input:checked + .theme-slider {
+  background-color: #1580FF;
+}
+
+/* iOS-style settings list */
+.settings-list {
+  background-color: var(--card);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 16px 0;
+}
+
+.settings-item {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.settings-item:last-child {
+  border-bottom: none;
+}
+
+.settings-item:active {
+  background-color: var(--muted);
+}
+
+.settings-item-label {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.settings-item-value {
+  color: var(--muted-foreground);
+  font-weight: 500;
+}
+
+/* Enhanced lesson section styling */
+.lesson-section {
+  transition: var(--theme-transition);
+}
+
+.lesson-header {
+  font-weight: 800 !important;
+  font-size: 24px !important;
+  letter-spacing: -0.02em !important;
+  margin-bottom: 8px !important;
+}
+
+.lesson-subtitle {
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  opacity: 0.8;
+}
+
+.lesson-stats {
+  font-weight: 700 !important;
+}
+
+.lesson-progress-text {
+  font-weight: 800 !important;
+  font-size: 18px !important;
+}
+
+/* Movie cards with squarish icons */
+.movie-card {
+  transition: var(--theme-transition);
+}
+
+.movie-card .movie-icon {
+  border-radius: 16px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dark .movie-card .movie-icon {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Ensure icons maintain squarish-round shape everywhere */
+.rounded-full.movie-icon,
+.rounded-full.course-icon,
+.rounded-full[data-movie-icon] {
+  border-radius: 20px !important;
+}
+
+/* Profile avatars remain circular */
+.profile-avatar,
+.user-avatar,
+.avatar:not(.movie-icon):not(.course-icon) {
+  border-radius: 50% !important;
+}
+
+/* Day indicator circles remain circular */
+.day-indicator,
+.calendar-dot,
+.activity-dot {
+  border-radius: 50% !important;
+}
+
+/* Achievement and badge icons remain circular */
+.achievement-icon,
+.badge-icon {
+  border-radius: 50% !important;
+}

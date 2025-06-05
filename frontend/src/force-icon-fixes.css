@@ -1,0 +1,79 @@
+/* FORCE SQUARISH MOVIE ICONS - AGGRESSIVE OVERRIDES */
+
+/* Target all possible movie icon selectors */
+.rounded-full,
+.aspect-square,
+[class*="w-16"][class*="h-16"],
+[class*="w-20"][class*="h-20"],
+[class*="w-24"][class*="h-24"],
+[class*="w-32"][class*="h-32"] {
+  border-radius: 20px !important;
+  -webkit-border-radius: 20px !important;
+}
+
+/* Specific overrides for common movie icon patterns */
+.w-16.h-16.rounded-full,
+.w-20.h-20.rounded-full,
+.w-24.h-24.rounded-full,
+.w-32.h-32.rounded-full {
+  border-radius: 20px !important;
+  -webkit-border-radius: 20px !important;
+}
+
+/* Movie card icons specifically */
+[class*="movie"] .rounded-full,
+[class*="course"] .rounded-full,
+[class*="lesson"] .rounded-full {
+  border-radius: 18px !important;
+  -webkit-border-radius: 18px !important;
+}
+
+/* Container with movie content */
+.bg-gradient-to-br .rounded-full,
+.bg-gradient-to-r .rounded-full {
+  border-radius: 20px !important;
+  -webkit-border-radius: 20px !important;
+}
+
+/* Any large square elements that should be squarish */
+.aspect-square.rounded-full {
+  border-radius: 20px !important;
+  -webkit-border-radius: 20px !important;
+}
+
+/* Keep small profile avatars circular */
+.w-8.h-8.rounded-full,
+.w-10.h-10.rounded-full,
+.w-12.h-12.rounded-full {
+  border-radius: 50% !important;
+  -webkit-border-radius: 50% !important;
+}
+
+/* Keep very small elements circular */
+.w-4.h-4.rounded-full,
+.w-6.h-6.rounded-full {
+  border-radius: 50% !important;
+  -webkit-border-radius: 50% !important;
+}
+
+/* BOLDER FONTS */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700 !important;
+}
+
+.font-semibold {
+  font-weight: 700 !important;
+}
+
+.font-medium {
+  font-weight: 600 !important;
+}
+
+button {
+  font-weight: 700 !important;
+}
+
+/* Lesson specific text */
+.text-lg, .text-xl, .text-2xl {
+  font-weight: 700 !important;
+}

@@ -980,3 +980,168 @@ body {
   }
 }
 
+
+/* iOS-optimized styles */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* iOS safe area handling */
+.safe-area-inset-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-inset-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+@import './ios-improvements.css';
+
+/* ===========================================
+   DIRECT IMPLEMENTATION OF REQUESTED CHANGES
+   =========================================== */
+
+/* 1. SQUARISH-ROUND MOVIE ICONS (not circles) */
+.rounded-full[class*="w-16"],
+.rounded-full[class*="w-20"],
+.rounded-full[class*="w-24"],
+.w-16.h-16.rounded-full,
+.w-20.h-20.rounded-full,
+.w-24.h-24.rounded-full,
+.aspect-square.rounded-full {
+  border-radius: 20px !important;
+  -webkit-border-radius: 20px !important;
+}
+
+/* Larger movie icons */
+.w-28.h-28.rounded-full,
+.w-32.h-32.rounded-full {
+  border-radius: 24px !important;
+  -webkit-border-radius: 24px !important;
+}
+
+/* Keep profile avatars and small icons circular */
+.w-8.h-8.rounded-full,
+.w-10.h-10.rounded-full,
+.w-12.h-12.rounded-full {
+  border-radius: 50% !important;
+}
+
+/* 2. BOLDER FONTS IN LESSON SECTIONS */
+/* Lesson titles */
+h1, h2, h3 {
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Movie/course titles */
+.text-xl,
+.text-lg {
+  font-weight: 700 !important;
+}
+
+/* Progress and stats text */
+.text-sm {
+  font-weight: 600 !important;
+}
+
+/* Button text */
+button {
+  font-weight: 700 !important;
+  letter-spacing: 0.025em !important;
+}
+
+/* Specific lesson content */
+[class*="lesson"] h1,
+[class*="lesson"] h2,
+[class*="lesson"] h3 {
+  font-weight: 800 !important;
+}
+
+/* 3. DARK THEME SETUP */
+.dark {
+  background-color: #111827 !important;
+  color: #f9fafb !important;
+}
+
+.dark .bg-white {
+  background-color: #1f2937 !important;
+}
+
+.dark .bg-gray-50 {
+  background-color: #111827 !important;
+}
+
+.dark .text-gray-900 {
+  color: #f9fafb !important;
+}
+
+.dark .text-gray-600 {
+  color: #9ca3af !important;
+}
+
+.dark .text-gray-500 {
+  color: #6b7280 !important;
+}
+
+.dark .border-gray-200 {
+  border-color: #374151 !important;
+}
+
+/* Dark theme transitions */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease !important;
+}
+
+/* Settings toggle switch */
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.theme-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.theme-slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .theme-slider {
+  background-color: #1580FF;
+}
+
+input:checked + .theme-slider:before {
+  transform: translateX(26px);
+}
+
+.dark .theme-slider {
+  background-color: #444;
+}
+
+/* FORCE ICON AND FONT FIXES */
+@import './force-icon-fixes.css';
